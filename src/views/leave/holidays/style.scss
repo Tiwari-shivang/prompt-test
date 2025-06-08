@@ -1,0 +1,9 @@
+@import "../../../components/common.scss";
+
+.holidays {
+	max-height: calc(100vh - 187px);
+	overflow: auto;
+	.react-bootstrap-table{
+		max-height: calc(100vh - 288px);
+	}
+}

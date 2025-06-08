@@ -1,0 +1,76 @@
+@import "../../../components/common.scss";
+
+.redBG {
+    background: $red;
+
+    Button {
+        color: $red;
+    }
+}
+
+.blueBG {
+    background: $primaryBlue;
+
+    Button {
+        color: $primaryBlue;
+    }
+}
+
+.checkInSection {
+    border-radius: 4px;
+    padding: 9px 0px 10px 0px ;
+   
+	height: 70px;
+    .goodMorningSection {
+        padding: 0 1rem;
+        text-align: center;
+        border-right: 1px solid #fff;
+
+        p {
+            font-size: 9px;
+            color: #fff;
+            margin: 0;
+
+            span {
+                font-size: 11px;
+                font-weight: 600;
+            }
+
+            .icon {
+                font-size: 24px;
+                margin-top: -6px;
+            }
+        }
+    }
+
+    .checkInButton {
+        padding: 0 1rem;
+        text-align: center;
+
+        p {
+            margin-bottom: 0;
+            margin-top: 2px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        button {
+            font-size: 10px;
+			font-weight: 600;
+            background: #fff;
+            border-radius: 25px;
+            padding: 2px 16px;
+            border-color: transparent;
+
+            @media screen and (max-width: 500px) {
+                padding: 4px 10px;
+            }
+
+            transition: 0.2s ease;
+
+            &:hover {
+                box-shadow: 0px 0px 6px 2px rgba(128, 128, 128, 0.307);
+            }
+        }
+    }
+}

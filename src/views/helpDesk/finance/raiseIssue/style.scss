@@ -1,0 +1,115 @@
+.nav {
+	.buttons {
+		.list {
+			display: flex;
+			flex-direction: row;
+			justify-content: right;
+			align-items: center;
+		}
+	}
+}
+
+.raiseIssue {
+	.raiseIssueTitle{
+		color: #276FFA;
+		margin-bottom: 0;
+	}
+	background-color: #fff;
+	padding: 1.5rem;
+	height: inherit;
+	border-radius: 4px;
+	font-size: 15px;
+	.dropdown-bar{
+		cursor: pointer;
+	}
+	.form-col{
+		padding: 30px 50px 30px 30px;
+		.labelAdmin{
+			width: 100%;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			overflow: hidden;
+			.customImg{
+				display: flex;
+				align-items: center;
+				padding: 5px 25px;
+				img{
+					height: 100%;
+				}
+				button{
+					border: none;
+					background-color: transparent;
+					width: 25px!important;
+					height: 25px!important;
+					padding: 0px;
+					position: absolute;
+					top: 10px;
+					right: 0px;
+					z-index: 9;
+					.crossIcon{
+						font-size: 20px;
+					}
+				}
+				.icons{
+					font-size: 35px;
+					margin-right: 10px;
+				}
+				p{
+					font-size: 16px;
+					margin-bottom: 0;
+				}
+			}
+			.customStyle{
+				display: none;
+			}
+		}
+	}
+	.description-col {
+		.agentDetailSection{
+            background-color: #fff;
+            border-radius: 3px;
+			.title{
+				font-size: 18px;
+				font-weight: 600;
+			}
+            .agentDetail{
+                display: flex;
+                align-items: center;
+                .agentDetailPic{
+                    width: 1.8rem;
+                    height: 1.8rem;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    padding: 1px;
+                    border:1px solid #ccc;
+                    margin-right: 10px;
+                    img, .userIcon{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 50%;
+                    }
+                }
+                p{
+                    margin-bottom: 0;
+                    span{
+                        font-weight: 600;
+                        display: block;
+                    }
+                }
+            }
+			ul{
+				padding-left: 0;
+				li{
+					list-style: none;
+                    font-size: 14px;
+					margin: 5px 0;
+				}
+			}
+			p{
+				font-size: 14px;
+				margin-bottom: 0;
+			}
+        }
+	}
+}

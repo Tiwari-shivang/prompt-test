@@ -1,0 +1,224 @@
+
+.addButton {
+    padding: 5px 15px;
+    font-size: 12px;
+    display: inline-block;
+    width: 100px;
+
+    .icon {
+        margin-right: 4px;
+        margin-top: -3px;
+    }
+}
+// .stepper-container {
+//   width: 100%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   // margin-bottom: 1rem;
+// }
+
+// .step-wrapper {
+//   // width: 33%;
+//   display: flex;
+//   align-items: center;
+//   position: relative;
+// }
+
+// .step-circle {
+//   width: 30px;
+//   height: 30px;
+//   border-radius: 50%;
+//   border: 2px solid #007bff;
+//   background-color: transparent;
+//   color: #007bff;
+//   font-weight: normal;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   z-index: 1; /* above the line */
+//   transition: background-color 0.3s, color 0.3s;
+// }
+
+// .step-circle.active {
+//   background-color: #007bff;
+//   color: white;
+//   font-weight: bold;
+// }
+
+// .step-line {
+//   width: 261px;  /* length of the line */
+//   height: 2px;
+//   background-color: #ccc;
+//   margin: 0 8px;
+//   transition: background-color 0.3s;
+// }
+
+// .step-line.active {
+//   background-color: #007bff;
+// }
+
+.stepper-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
+}
+
+.step-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+}
+
+.step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: #007bff;
+  background-color: transparent;
+  border: 2px solid #007bff;
+  z-index: 2; /* Always above the line */
+  transition: all 0.3s ease;
+}
+
+.step-circle.active {
+  border: 2px dashed #007bff;
+  background-color: white;
+  color: #007bff;
+}
+
+.step-circle.completed {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.step-circle.upcoming {
+  background-color: transparent;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+.step-label {
+  // margin-top: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  width: 120px;
+}
+
+.step-line {
+  position: absolute;
+  top: 16px; /* center relative to the 32px circle */
+  left: 50%;
+  width: calc(100% - 32px);
+  height: 2px;
+  background-color: #ccc;
+  z-index: 1;
+  transform: translateX(16px); /* push line right to start after the current circle */
+}
+
+.step-line.active {
+  z-index: 1; /* Ensure the line is below the active circle */
+  background-color: #007bff;
+}
+
+
+
+
+.equal-width-table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  
+  .equal-width-table th {
+    width: 16.66%;
+  }
+
+.editButton{
+    padding: 5px;
+    font-size: 12px;
+    display: inline-block;
+    width: 50px;
+}
+.custom-modal {
+    max-width: 1000px; 
+}
+.custom-modal .modal-body{
+  height: 64vh;
+}
+
+.custom-modal .modal-content{
+  height: 90vh;
+}
+
+.custom-modal-delete{
+    top: 6%;
+    max-width: 600px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: auto;
+}
+
+
+
+input[type="number"] {
+  -moz-appearance: number-input;
+}
+.custom-section-border {
+    border-bottom: 1px solid #dee2e6; /* or any color you prefer */
+  }
+select.form-select {
+    background-image: none;
+  }
+.label-font{
+    font-size: 12.5px !important;
+}
+.form-label {
+  margin-bottom: 4px;
+}
+// .input-font input[type="text"],
+// .input-font input[type="number"],
+// .input-font input[type="date"],
+// .input-font select,
+
+// .input-font textarea {
+//   font-size: 14px !important;
+// }
+.section-heading{
+    font-size: medium;
+
+}
+.custom-modal .modal-body {
+    max-height: 68vh;
+    overflow-y: auto;
+  }
+
+.custom-title {
+    font-size: 16px; 
+    font-weight: bold;
+}
+
+.deleteButton{
+    border: none;
+    background-color: #e92525;
+    padding: 5px;
+    font-size: 12px;
+    display: inline-block;
+    width: 50px;
+}
+
+.sectionLabel{
+    font-size: 15px;
+    font-weight: 600;
+}

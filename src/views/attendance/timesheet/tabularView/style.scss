@@ -1,0 +1,76 @@
+@import "../../../../components/common.scss";
+
+.timesheet {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 16px 4px;
+
+    .headerRowMain {
+        flex-direction: column;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 10px;
+        background: white;
+
+        .regBtn {
+            margin-right: 13px;
+        }
+
+        .dateNav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px 0px 5px 0px;
+
+            Button {
+                padding: 0px 5px 5px 5px;
+                border: none;
+                font-size: 20px;
+                font-weight: bolder;
+                color: $primaryBlue;
+                background: none;
+            }
+
+            .dateInfo {
+                font-size: 16px;
+                margin: 0px 10px;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .tabularTable {
+        table {
+            border: none;
+            margin-bottom: 0;
+
+            thead {
+                tr {
+                    th {
+                        font-size: 12px;
+                        white-space: none;
+                    }
+                }
+            }
+
+            tbody {
+                border-top: 0;
+
+                tr {
+                    td {
+                        padding: 0.4rem;
+                        font-size: 12px;
+                        border: none;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+
+        .table-bordered > :not(caption) > * {
+            border-width: 0;
+        }
+    }
+}

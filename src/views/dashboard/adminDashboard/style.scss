@@ -1,0 +1,276 @@
+@import "../../../components/common.scss";
+
+
+.powerBiStyle{
+	div{
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.adminDashboard {
+	.totalEmployeeSection {
+		background-color: #fff;
+		padding-bottom: 0.5rem;
+		border-radius: 3px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		p {
+			font-weight: bold;
+			margin-bottom: 0;
+		}
+
+		.title {
+			p {
+				font-size: 15px;
+				opacity: 0.8;
+
+				span {
+					font-size: 15px;
+					opacity: 0.9;
+				}
+			}
+		}
+	}
+
+	.totalProject {
+		background-color: #fff;
+		padding: 1rem;
+		border-radius: 4px;
+
+		.totalEmployeeSection {
+			.selctDuration {
+				display: flex;
+				align-items: center;
+
+				&>p {
+					margin-right: 5px;
+				}
+
+				select {
+					-webkit-appearance: none !important;
+					font-size: 11px;
+					padding: 3px 12px;
+				}
+			}
+		}
+
+		.currentProject {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 6px;
+
+			p {
+				margin-bottom: 0;
+				font-size: 12px;
+
+				span {
+					color: #6672fb;
+					font-weight: bold;
+				}
+			}
+
+
+		}
+
+		.recharts-responsive-container {
+			margin-bottom: 0;
+			height: 168px !important;
+
+			.recharts-wrapper {
+				.recharts-legend-wrapper {
+					height: 14px !important;
+				}
+			}
+		}
+	}
+
+	.projectSummary {
+		background-color: #fff;
+		padding: 1rem;
+		border-radius: 4px;
+		height: 320px;
+
+		.titleSection {
+			background-color: #fff;
+			padding-bottom: 1rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			.title {
+				p {
+					font-size: 15px;
+					font-weight: bold;
+					opacity: 0.8;
+					margin-bottom: 0;
+				}
+			}
+
+			.filterSection {
+				.filter {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					border: 1px solid #e1e1e1;
+					padding: 4px 10px;
+					border-radius: 4px;
+					cursor: pointer;
+
+					p {
+						margin-bottom: 0;
+						font-size: 13px;
+						margin-right: 20px;
+					}
+				}
+
+				.filter:hover {
+					background-color: #0667FD;
+				}
+			}
+		}
+
+		.summaryTables {
+			.react-bootstrap-table {
+				height: 230px;
+				overflow-y: hidden;
+
+				&:hover {
+					overflow-y: scroll;
+				}
+
+				table {
+
+					thead {
+						tr {
+							th {
+								color: rgba(44, 56, 74, 0.8);
+								font-size: 11px;
+								border: none;
+							}
+						}
+					}
+
+					tbody {
+
+						tr {
+							border: 1px solid #f6f6f6;
+
+							td {
+								font-size: 11px;
+								border: none;
+
+								&:nth-child(1) {
+									display: block;
+									text-overflow: ellipsis;
+									white-space: nowrap;
+									overflow: hidden;
+								}
+
+								.projectStatus {
+									display: flex;
+									align-items: left;
+									justify-content: left;
+
+									p {
+										margin-bottom: 0;
+										width: 40%;
+										white-space: nowrap;
+									}
+
+									.status {
+										height: 10px;
+										width: 10px;
+										border-radius: 2px;
+										margin-right: 5px;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.employee-Leave-Holiday {
+		background-color: #fff;
+		border-radius: 4px;
+		display: flex;
+		padding: 1rem 0;
+
+		// box-shadow: 0px 3px 5px 1px #ccc;
+		.employeeSection {
+			width: 50%;
+			flex-basis: 50%;
+			display: flex;
+			align-items: center;
+			padding: 0 1rem;
+
+			&:nth-child(2) {
+				// border-right: 1px solid #0667FD;
+				border-left: 1px solid #0667fd;
+			}
+
+			.img {
+				width: 2.2rem;
+				height: 2.2rem;
+				margin-right: 12px;
+				position: relative;
+				overflow: hidden;
+
+				&::before {
+					position: absolute;
+					content: "";
+					background: rgba(6, 103, 253, 0.2);
+					height: 100%;
+					width: 100%;
+					border-radius: 50%;
+					top: 10px;
+				}
+
+				img {
+					width: 80%;
+					display: block;
+					margin: 0 auto;
+					// object-fit: cover;
+				}
+			}
+
+			.detail {
+				p {
+					color: #0667fd;
+					font-weight: 600;
+					margin: 0;
+
+					span {
+						font-weight: bold;
+					}
+				}
+			}
+		}
+	}
+
+	.customCol {
+		width: 20%;
+		flex-basis: 20%;
+
+		.carousel {
+			box-shadow: 0px 3px 6px #00000014;
+		}
+
+		@media screen and (max-width: 1199px) {
+			width: 33.3%;
+			flex-basis: 33.3%;
+		}
+	}
+
+	.customCol2 {
+		.carousel {
+			box-shadow: 0px 3px 6px #00000014;
+		}
+	}
+}

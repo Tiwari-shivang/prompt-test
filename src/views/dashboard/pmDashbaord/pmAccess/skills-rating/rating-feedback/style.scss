@@ -1,0 +1,29 @@
+.rating-feedback{
+    .btnGroup{
+        display: flex;
+        margin-top: 32px;
+        button{
+            margin-right: 10px;
+            width: 120px;
+        }
+    }
+    .ratingForm{
+        background-color: #fff;
+        padding: 2em;
+        .heading{
+            border-bottom: 1px solid #c8c8c8;
+            padding-bottom: 12px;
+        }
+    }
+    .employee-name{
+        h6{
+            font-size: 15px;
+            margin-bottom: 0;
+        }
+        input{
+            display: none;
+            height: 1px;
+            width: 1px;
+        }
+    }
+}

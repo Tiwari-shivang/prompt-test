@@ -1,0 +1,63 @@
+@import "../../../components/common.scss";
+
+.selfService {
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 16px 4px;
+
+	.buttonWithdrawSection {
+		margin-top: 10px;
+
+		button {
+			font-size: 12px;
+		}
+		.cancelBtn {
+			margin-left: 10px;
+		}
+		
+		.textBox {
+			background: #FFFFFF 0% 0% no-repeat padding-box;
+			box-shadow: 0px -5px 5px #D8D6D629;
+			border: 2px solid #DBDBDB;
+			padding: 10px;
+			font-size: 12px;
+			margin-top: 10px;
+		}
+	}
+
+	.basicInfo {
+		background-color: #fff;
+		border-radius: 3px;
+		padding: 1rem;
+		margin-bottom: 1rem;
+		height: 100%;
+
+		.infoTable {
+			.table {
+				margin-bottom: 0;
+
+				tbody {
+					tr {
+						td {
+							font-size: 12px;
+							border-bottom-color: #f6f6f6;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.buttonsGrp {
+		margin-top: 10px;
+
+		.updateBtn,
+		.cancelBtn {
+			font-size: 12px;
+		}
+
+		.cancelBtn {
+			margin-left: 10px;
+		}
+	}
+}

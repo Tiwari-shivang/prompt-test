@@ -1,0 +1,46 @@
+@import "../../../../components/common.scss";
+
+.hrHelpDesk {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 16px 4px;
+    & > div {
+        &:nth-child(2) {
+            .card {
+                background: $primaryBlue;
+                color: #fff;
+                .icon {
+                    filter: invert(1);
+                }
+                .card-body {
+                    border-top: 1px solid #eee;
+                }
+            }
+        }
+    }
+    .card {
+        margin: 0px;
+        width: 100%;
+        height: 100%;
+        padding: 28px 24px;
+        cursor: pointer;
+        box-shadow: 0 0 15px 10px #eee;
+        border-radius: 10px;
+        .card-title {
+            font-weight: bold;
+            font-size: 15px;
+        }
+        .icon {
+            margin-right: 10px;
+            font-size: 2em;
+        }
+        .card-body {
+            margin-top: 14px;
+            border-top: 1px solid #000;
+            padding: 18px 0 0 0;
+            p {
+                font-weight: bold;
+            }
+        }
+    }
+}

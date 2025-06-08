@@ -1,0 +1,137 @@
+@import "../../../components/common.scss";
+
+.employeeDashboard {
+	font-size: 11px;
+
+	.customCol {
+		width: 23%;
+		flex-basis: 23%;
+
+		@media screen and (max-width: 1199px) {
+			width: 50%;
+			flex-basis: 50%;
+		}
+	}
+
+	// .customCol2 {
+	// 	width: 31%;
+	// 	flex-basis: 31%;
+
+	// 	@media screen and (max-width: 1199px) {
+	// 		width: 50%;
+	// 		flex-basis: 50%;
+	// 	}
+	// }
+
+	p {
+		margin-bottom: 0;
+	}
+
+	.titleSection {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 1rem;
+	}
+
+	.employee-Leave-Holiday {
+		background-color: #fff;
+		border-radius: 4px;
+		display: flex;
+		padding: 1rem 0;
+
+		.employeeSection {
+			width: 50%;
+			flex-basis: 50%;
+			display: flex;
+			align-items: center;
+			padding: 0 1rem;
+
+			&:nth-child(2) {
+				border-left: 1px solid #0667FD;
+			}
+
+			.img {
+				width: 2.2rem;
+				height: 2.2rem;
+				margin-right: 12px;
+				position: relative;
+
+				&::before {
+					position: absolute;
+					content: "";
+					background: rgba(6, 103, 253, 0.2);
+					height: 100%;
+					width: 100%;
+					border-radius: 50%;
+					top: 10px;
+				}
+
+				img {
+					width: 80%;
+					display: block;
+					margin: 0 auto;
+				}
+			}
+
+			.detail {
+				p {
+					color: #0667FD;
+					font-weight: 600;
+
+					span {
+						font-weight: bold;
+					}
+				}
+			}
+		}
+
+	}
+
+	.quickLinksMainDiv {
+		background-color: #fff;
+		padding: 1.5rem 0.8rem;
+		border-radius: 3px;
+
+		height: 100%;
+
+		.title {
+			margin-left: 0.4rem;
+		}
+
+		.quickLinksGroup {
+			display: flex;
+			flex-wrap: wrap;
+
+			.quickLinks {
+				text-align: center;
+				width: 42%;
+				flex-basis: 42%;
+				border-radius: 6px;
+				padding: 0.5rem 0;
+				box-shadow: 0px 20px 25px #83838329;
+				margin: 8px 4%;
+
+				img {
+					width: 25px;
+					margin-bottom: 5px;
+				}
+
+				p {
+					font-size: 9px;
+				}
+			}
+		}
+	}
+
+	.carousel {
+		height: 100%;
+
+		.carousel-inner {
+			height: 100%;
+
+			.carousel-item {
+				height: 100%;
+			}
+		}
+	}
+}

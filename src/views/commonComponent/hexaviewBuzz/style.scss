@@ -1,0 +1,49 @@
+@import "../../../components/common.scss";
+@import '~antd/dist/antd.css';
+
+.buzz-POC {
+	margin-bottom: 24px;
+
+	.buttons {
+		.list {
+			display: flex;
+			flex-direction: row;
+			justify-content: right;
+			align-items: center;
+		}
+	}
+
+	.buzzButtonGroup {
+		text-align: right;
+
+		.editButton {
+			padding: 5px 15px;
+			font-size: 12px;
+
+			.icon {
+				margin-right: 4px;
+				margin-top: -3px;
+			}
+		}
+	}
+
+	.addHexaviewBuzz {
+		margin-bottom: 16px;
+		background-color: #fff;
+		padding: 1.5rem;
+		border-radius: 4px;
+		font-size: 14px;
+
+		.label {
+			height: 160px;
+		}
+
+		input {
+			font-size: 14px !important;
+		}
+
+		select {
+			font-size: 14px;
+		}
+	}
+}

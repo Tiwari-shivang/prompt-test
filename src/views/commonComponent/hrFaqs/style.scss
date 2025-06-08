@@ -1,0 +1,50 @@
+@import "../../../components/common.scss";
+.faq{
+    .ButtonGroup{
+        text-align: right;
+        .addButton{
+            padding: 5px 15px;
+            font-size: 13px;
+            .icon{
+                margin-right: 4px;
+                margin-top: -3px;
+            }
+        }
+    }
+    .card{
+        .card-body{
+            .react-bootstrap-table{
+                height: 354px;
+                table{
+                    tbody{
+                        border-top: 0;
+                        tr{
+                            td{
+                                border-bottom:1px solid #f6f6f6;
+                                .ActionIcon{
+                                    display: flex;
+									justify-content: center;
+
+                                    flex-wrap: wrap;
+                                    .icon{
+                                        font-size: 15px;
+                                        cursor: pointer;
+                                    }
+                                    .editIcon{
+                                        margin-right: 8px;
+                                    }
+                                    .deleteIcon{
+                                        color: $red;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .table-bordered>:not(caption)>* {
+                    border-width: 0;
+                }
+            }
+        }
+    }
+}

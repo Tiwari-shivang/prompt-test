@@ -1,0 +1,88 @@
+@import "../../../components/common.scss";
+
+.leaveApprovalSection {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 0.8rem;
+    // margin-bottom: 16px;
+    height: 320px;
+
+    .scrollLeaveApproval {
+        // overflow: hidden;
+        overflow: auto;
+        height: 240px;
+        width: 100%;
+        min-width: 200px;
+		.leaveApproval {
+			margin: 8px 0;
+			.leaveApprovalRow {
+				p {
+					margin-bottom: 0;
+				}
+	
+				.date {
+					border-radius: 12px;
+					background-color: #0667fd;
+					padding: 3px 1px;
+					text-align: center;
+					color: #fff;
+					font-size: 10px;
+					@media screen and (max-width: 328px) {
+						border-radius: 8px;
+					}
+					span {
+						white-space: nowrap;
+						margin-right: 2px;
+						font-weight: 500;
+					}
+				}
+	
+				.name {
+					padding-left: 4px;
+	
+					p {
+						font-size: 12px;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						display: block;
+						overflow: hidden;
+					}
+				}
+	
+				.cancel {
+					display: flex;
+				}
+	
+				.approve {
+					display: flex;
+				}
+	
+				button {
+					padding: 2px 1px;
+					font-size: 10px;
+					border-radius: 10px;
+					width: 94%;
+					margin: auto 3%;
+					svg{
+						font-size: 13px;
+	
+					}
+				}
+			}
+		}
+    }
+
+
+    .viewListBtn {
+        margin-top: 30px;
+        cursor: pointer;
+        text-align: center;
+    }
+}
+.approveRejectModal {
+    .modal-body {
+        .dateInfo {
+            font-size: 12px;
+        }
+    }
+}

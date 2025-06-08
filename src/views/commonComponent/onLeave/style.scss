@@ -1,0 +1,28 @@
+@import '../../../components/common.scss';
+.onLeaveCard{
+    background-image: linear-gradient(rgba(255, 255, 255, 1), rgb(28 213 132 / 90%) 100%);
+    padding: 5rem 1rem 5rem;
+    border-radius: 4px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    height: 320px;
+    .name{
+        text-align: center;
+		margin-top: 5%;
+        p{
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            span{
+                display: block;
+                font-size: 13px;
+                opacity: 0.8;
+            }
+        }
+        button{
+            padding: 4px 15px;
+            font-size: 10px;
+        }
+    }
+
+}

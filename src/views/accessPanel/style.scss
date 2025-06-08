@@ -1,0 +1,9 @@
+@import "../../components/common.scss";
+
+.accessPanel {
+	max-height: calc(100vh - 195px);
+    .ant-table{
+		overflow: auto;
+		max-height: calc(100vh - 245px);
+	}
+}

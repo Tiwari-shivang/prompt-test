@@ -1,0 +1,110 @@
+@import "../../../components/common.scss";
+
+.regularisationModal {
+    padding-right: 0 !important;
+    max-width: 500px;
+    right: 0px;
+    left: auto;
+    border-right: 1px solid #000;
+
+    .modal-dialog {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        transform: translate(300px, 0px) !important;
+
+        .modal-content {
+            border-radius: 0;
+            border: none;
+
+            .modal-header {
+                padding: 8px 1rem;
+
+                .modal-title {
+                    font-size: 18px;
+                }
+
+                button {
+                    font-size: 18px;
+                }
+
+                button.btn-close {
+                    background: transparent url("../../../assets/images/rightArrow.png") center/1em
+                        auto no-repeat;
+                }
+            }
+
+            .modal-body {
+                padding: 1rem;
+                height: calc(100vh - 45px);
+
+                p {
+                    font-size: 15px;
+                }
+
+                .HeadingName {
+                    color: $primaryBlue;
+                    font-size: 18px;
+                }
+
+                .regularisationContent {
+                    overflow-y: auto;
+                    height: calc(100vh - 45px);
+                }
+            }
+        }
+    }
+}
+
+.regularisationModal.show {
+    .modal-dialog {
+        transform: translate(0px, 0px) !important;
+    }
+}
+
+.regularisationForm {
+    background-color: #fff;
+    padding: 0.5rem;
+    height: inherit;
+    border-radius: 4px;
+    font-size: 14px;
+
+    .headerRow {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .formRegularisation {
+        display: flex;
+        flex-direction: column;
+        // align-items: flex-start;
+        // width: 100%;
+
+        .dateCol {
+            padding: 0;
+        }
+
+        .from {
+            margin-right: 10px;
+        }
+
+        .hideme {
+            display: none;
+        }
+
+        select,
+        Input,
+        TextArea {
+            padding: 5px;
+            font-size: 14px;
+            border: 1px solid lightgrey;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
+}

@@ -1,0 +1,43 @@
+@import "../../../../components/common.scss";
+// *{outline: 1px solid lightgrey;}
+.leaveApprovalList {
+    max-height: calc(100vh - 200px);
+
+    .react-bootstrap-table {
+        max-height: calc(100vh - 290px);
+        table {
+            tbody {
+                tr {
+                    td {
+                        border-bottom: 1px solid #f6f6f6;
+                        .dateCol {
+                            p {
+                                white-space: nowrap;
+                                font-size: 13px;
+                            }
+                        }
+                        .actionCol {
+                            .approveBtn,
+                            .rejectBtn {
+                                border-radius: 20px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .table-bordered > :not(caption) > * {
+            border-width: 0;
+        }
+    }
+}
+.approveRejectModal {
+    p {
+        font-size: 17px !important;
+        span {
+            font-weight: 700;
+            opacity: 0.8;
+        }
+    }
+}

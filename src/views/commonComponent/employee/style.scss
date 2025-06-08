@@ -1,0 +1,15 @@
+@import '../../../components/common.scss';
+
+.totalEmployee{
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 4px;
+    .recharts-responsive-container{
+        margin-bottom: 25px;
+        .recharts-wrapper{
+            .recharts-legend-wrapper{
+                bottom: -10px!important;
+            }
+        }
+    }
+}

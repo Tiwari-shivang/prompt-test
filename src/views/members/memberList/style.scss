@@ -1,0 +1,266 @@
+@import "../../../components/common.scss";
+
+.memberList {
+    p {
+        white-space: nowrap;
+        margin-bottom: 0;
+        font-size: 16px;
+    }
+    .checkboxSection {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+    .headerRow {
+        display: flex;
+        align-items: center;
+    }
+    .searchSection {
+        margin: 0 8px;
+    }
+    .filterButton {
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+    }
+    .memberCard {
+        background-color: #fff;
+        padding: 0.8rem;
+        border-radius: 10px;
+        .memberRow {
+            display: flex;
+            flex-wrap: wrap;
+            .memberCol3 {
+                width: 73px;
+                flex-basis: 73px;
+                padding-right: 8px;
+                .memberPic {
+                    width: 65px;
+                    height: 65px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    padding: 1px;
+                    outline: 0.1px solid #000;
+                    margin-bottom: 9px;
+                    img {
+                        width: 100%;
+                        object-fit: cover;
+                        border-radius: 50%;
+                        height: 100%;
+                        border-radius: 50%;
+                    }
+                    .userIcon {
+                        width: 100%;
+                        object-fit: cover;
+                        border-radius: 50%;
+                        height: 100%;
+                    }
+                }
+                .buttonGroup {
+                    width: 69px;
+                    button {
+                        font-size: 9px;
+                        padding: 0.175rem 0.375rem;
+                        width: 100%;
+                        border-radius: 25px;
+                        background-color: $primaryBlue;
+                        box-shadow: 0 0 10px #ccc;
+                        color: #fff;
+                        margin-bottom: 8px;
+                    }
+                    p {
+                        font-size: 10px;
+                        text-align: center;
+                    }
+                }
+            }
+            .memberCol9 {
+                width: calc(100% - 73px);
+                flex-basis: calc(100% - 73px);
+                border-left: 1px solid #f6f6f6;
+                padding-left: 10px;
+                .memberDetail {
+                    .memberDetailRow {
+                        display: flex;
+                        flex-wrap: wrap;
+                        width: 100%;
+                        .more {
+                            position: relative;
+                            .moreIcon {
+                                cursor: pointer;
+                                font-size: 20px;
+                            }
+                            .popover-menu {
+                                display: none;
+                                background: #fff;
+                                width: 80px;
+                                box-shadow: 0 0 7px #ccc;
+                                position: absolute;
+                                right: 0;
+                                top: 28px;
+                                padding: 4px 8px 4px;
+                                border-radius: 2px;
+                                &::before {
+                                    content: "";
+                                    width: 10px;
+                                    height: 10px;
+                                    position: absolute;
+                                    top: -5px;
+                                    right: 3px;
+                                    background-color: #fff;
+                                    box-shadow: 0 0 4px #ccc;
+                                    transform: rotate(45deg);
+                                    z-index: 0;
+                                }
+                                .popover-item {
+                                    font-size: 12px;
+                                    display: flex;
+                                    align-items: center;
+                                    margin: 2px 0;
+                                    cursor: pointer;
+                                    a {
+                                        width: 100%;
+                                        color: black;
+                                        text-decoration: none;
+                                    }
+                                    .EditIcon {
+                                        color: $primaryBlue;
+                                        margin-right: 3px;
+                                    }
+                                    .deleteIcon {
+                                        color: $red;
+                                        margin-right: 3px;
+                                    }
+                                }
+                            }
+                            .popover-menu.show {
+                                display: block;
+                                border-radius: 5px;
+                            }
+                        }
+                    }
+                    .memberName {
+                        color: $primaryBlue;
+                        font-weight: 600;
+                        font-size: 14px;
+                        text-overflow: ellipsis;
+                        width: 100%;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                    .memberDesignation {
+                        margin: 0px 0px 1px 0px;
+                        span {
+                            background-color: #dbefff;
+                            font-size: 12px;
+                            font-weight: 600;
+                            padding: 0.1rem 0.4rem 0.1rem 0.4rem;
+                            border-radius: 5px;
+							margin-right: 3px;
+                        }
+                    }
+                    .memberDescription {
+                        p {
+							font-size: 11px;
+                            font-weight: 600;
+                            margin-bottom: 2px;
+                            overflow: hidden;
+                        }
+                    }
+                    .memberSkills {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        span {
+                            border: 1px solid #ccc;
+                            font-size: 9px;
+                            padding: 1px 8px;
+                            border-radius: 3px;
+                            margin-right: 5px;
+                            // display: inline-block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //Table Css
+    .card {
+        margin-bottom: 16px;
+        .card-body {
+            .react-bootstrap-table {
+                height: 354px;
+                table {
+                    tbody {
+                        tr {
+                            td {
+                                border-bottom: 1px solid #f6f6f6;
+                                .allocationCol {
+                                    display: flex;
+                                    justify-content: left;
+                                    color: #5cb85c;
+                                    font-weight: 600;
+                                }
+                                .nameAndPic {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: start;
+                                    color: #000;
+                                    cursor: pointer;
+                                    .headPic {
+                                        height: 20px;
+                                        width: 20px;
+                                        overflow: hidden;
+                                        border-radius: 50%;
+                                        margin-right: 10px;
+                                        outline: 1px solid #000;
+                                        box-shadow: -4px 0 0 $primaryBlue;
+                                        img,
+                                        .userIcon {
+                                            width: 20px;
+                                            height: 20px;
+                                            object-fit: cover;
+                                            border-radius: 50%;
+                                        }
+                                    }
+                                    p {
+                                        margin-bottom: 0;
+                                        white-space: nowrap;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                    }
+                                    a {
+                                        width: 75px;
+                                        text-overflow: ellipsis;
+                                        overflow: hidden;
+                                        white-space: nowrap;
+                                        color: #000;
+                                    }
+                                }
+                                .ActionIcon {
+                                    display: flex;
+                                    justify-content: left;
+                                    flex-wrap: wrap;
+                                    .icon {
+                                        font-size: 18px;
+                                        cursor: pointer;
+                                    }
+                                    .editIcon {
+                                        margin-right: 8px;
+                                    }
+                                    .deleteIcon {
+                                        color: $red;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .table-bordered > :not(caption) > * {
+                    border-width: 0;
+                }
+            }
+        }
+    }
+}

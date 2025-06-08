@@ -1,0 +1,163 @@
+@import "../../../components/common.scss";
+.nav {
+    .filter-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+
+        Button {
+            border-radius: 3px;
+            margin-left: 10px;
+            height: fit-content;
+        }
+    }
+}
+
+.referral {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 4px;
+    font-size: 14px;
+
+    .react-bootstrap-table {
+        table {
+            border: none;
+
+            thead {
+                tr {
+                    th {
+                        border-bottom: 1px solid #e4e4e4;
+                    }
+                }
+            }
+
+            tbody {
+                border-top: 0;
+
+                tr {
+                    td {
+                        border-bottom: 1px solid #f6f6f6;
+
+                        .actionCol {
+                            button {
+                                font-size: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .table-bordered > :not(caption) > * {
+            border-width: 0;
+        }
+    }
+}
+
+.addReferral {
+    background-color: #fff;
+    // height: inherit;
+    border-radius: 4px;
+    font-size: 14px;
+
+    .leftCol {
+        @media only screen and (min-width: 768px) {
+            border-right: 1px solid lightgrey;
+        }
+    }
+
+    .headerRow {
+        font-size: 22px;
+        font-weight: bold;
+        padding: 0px 0px 12px 12px;
+        border-bottom: 1px solid lightgrey;
+    }
+
+    .formAddReferral {
+        .city {
+            margin-right: 10px;
+        }
+
+        .state {
+            // margin-right: 10px;
+        }
+
+        .country {
+            margin-left: 10px;
+        }
+
+        .hideme {
+            display: none;
+        }
+
+        select,
+        Input,
+        TextArea {
+            padding: 5px;
+            font-size: 14px;
+            border: 1px solid lightgrey;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
+}
+
+.applyReferralModal {
+    padding-right: 0 !important;
+    max-width: 550px;
+    right: 0px;
+    left: auto;
+    border-right: 1px solid #000;
+
+    .modal-dialog {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        transform: translate(300px, 0px) !important;
+
+        .modal-content {
+            border-radius: 0;
+            border: none;
+
+            .modal-header {
+                padding: 8px 1rem;
+
+                .modal-title {
+                    font-size: 18px;
+                }
+
+                button {
+                    font-size: 18px;
+                }
+
+                button.btn-close {
+                    background: transparent url("../../../assets/images/rightArrow.png") center/1em
+                        auto no-repeat;
+                }
+            }
+
+            .modal-body {
+                padding: 1rem;
+                height: calc(100vh - 45px);
+
+                p {
+                    font-size: 15px;
+                }
+
+                .HeadingName {
+                    color: $primaryBlue;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
+
+.applyReferralModal.show {
+    .modal-dialog {
+        transform: translate(0px, 0px) !important;
+    }
+}

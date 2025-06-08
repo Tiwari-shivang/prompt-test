@@ -1,0 +1,43 @@
+@import "../../../components/common.scss";
+
+.traineeRating {
+	// right: 0px;
+	border-right: 1px solid #000;
+	top: 30%;
+
+	.modal-dialog {
+
+		.modal-content {
+			border-radius: 0;
+			border: none;
+
+			.modal-header {
+				padding: 8px 1rem;
+
+			}
+
+			.modal-body {
+				padding: 1rem;
+
+				.ratingRow,
+				.feedbackRow {
+					font-size: 18px;
+					padding-left: 15px;
+				}
+
+				.ratingRow {
+					.hideme {
+						display: none;
+					}
+
+					.star {
+						color: #6936e0;
+						font-size: 35px;
+						padding-left: 10px;
+					}
+				}
+			}
+		}
+	}
+
+}

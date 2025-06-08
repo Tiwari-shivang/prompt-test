@@ -1,0 +1,162 @@
+@import "../../../components/common.scss";
+.directory {
+    .breadcrumb {
+        margin: 0;
+    }
+    .buttonGroup {
+        justify-content: right;
+        display: flex;
+        button {
+            margin-right: 16px;
+            padding: 4px 10px;
+            font-size: 15px;
+        }
+        .filterSection {
+            .searchSection {
+                width: 100%;
+                margin-right: 16px;
+            }
+            button {
+                margin: 0;
+            }
+        }
+    }
+    .card {
+        .card-body {
+            .react-bootstrap-table {
+                height: 354px;
+                border: 1px solid #f6f6f6;
+                padding: 0 10px;
+                table {
+                    border: none;
+                    thead {
+                        tr {
+                            th {
+                                border-bottom: 1px solid #e4e4e4;
+                            }
+                        }
+                    }
+                    tbody {
+                        border-top: 0;
+                        tr {
+                            td {
+                                border-bottom: 1px solid #f6f6f6;
+                                .departmentHead {
+                                    display: flex;
+                                    align-items: center;
+                                    .headPic {
+                                        height: 1.5rem;
+                                        width: 1.5rem;
+                                        overflow: hidden;
+                                        border-radius: 50%;
+                                        margin-right: 5px;
+                                        outline: 0.1px solid #000;
+                                        img,
+                                        .userIcon {
+                                            width: 100%;
+                                            height: 100%;
+                                            object-fit: cover;
+                                            border-radius: 50%;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .table-bordered > :not(caption) > * {
+                    border-width: 0;
+                }
+            }
+        }
+    }
+    .Col {
+        width: 20%;
+        flex-basis: 20%;
+        flex: initial;
+        @media screen and (max-width: 1199px) {
+            width: 25%;
+            flex-basis: 25%;
+        }
+        @media screen and (max-width: 991px) {
+            width: 33.3%;
+            flex-basis: 33.3%;
+        }
+        .directoryDiv {
+            background-color: #fff;
+            padding: 0.8rem;
+            border-radius: 3px;
+            min-height: 220px;
+            box-shadow: 0 0 5px 4px #eee;
+            cursor: pointer;
+            .more {
+                position: relative;
+                text-align: right;
+                .icon {
+                    cursor: pointer;
+                }
+            }
+            .directoryInfo {
+                text-align: center;
+                .pic {
+                    width: 4rem;
+                    height: 4rem;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    border: 1px solid #d8d8d8;
+                    padding: 1px;
+                    margin: 10px auto 10px;
+                    img,
+                    .userIcon {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 50%;
+                    }
+                }
+                h6 {
+                    margin: 0;
+                    font-size: 14px;
+                    font-weight: bold;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    span {
+                        color: #3bbd9b;
+                        font-weight: 600;
+                        display: block;
+                    }
+                }
+                p {
+                    margin: 2px 0 0;
+                    font-size: 10px;
+                    font-weight: 600;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+                .designation {
+                    color: #306ee3;
+                }
+            }
+            .moreDetail {
+                border-top: 1px solid #f6f6f6;
+                margin-top: 16px;
+                padding-top: 16px;
+                p {
+                    font-size: 10px;
+                    text-align: left;
+                    line-height: 2;
+                    .icon {
+                        margin-right: 5px;
+                        color: $primaryBlue;
+                        font-size: 12px;
+                    }
+                }
+                .detail {
+                    display: none;
+                }
+            }
+        }
+    }
+}

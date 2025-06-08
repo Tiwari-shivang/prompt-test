@@ -1,0 +1,61 @@
+@import "../../../components/common.scss";
+* {
+    // outline: 1px solid lightgrey;
+}
+.feedbackModule {
+    background-color: #fff;
+    padding: 1.5rem;
+    max-height: calc(100vh - 144px);
+    border-radius: 4px;
+    font-size: 14px;
+    .react-bootstrap-table {
+		max-height: calc(100vh - 239px);
+        table {
+            
+            thead {
+				th:nth-child(2){
+					text-align: left;
+					max-width: 28%;
+				}
+            }
+
+            tbody {
+                overflow: auto;
+				word-break: break-all;
+                tr {
+					border-top: 1px solid rgba(211, 211, 211, 0.465);
+                    
+                    td {
+                        border-style: none;
+
+                        span {
+                            font-size: 16px;
+                            margin-top: 4px;
+                        }
+						
+                        .icon {
+                            font-size: 18px;
+                            margin-bottom: 6px;
+                        }
+                        .starIcon {
+                            color: $yellow;
+                        }
+                        .editIcon {
+                            color: $primaryBlue;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.addFeedbackModal {
+    .stars {
+        .ant-rate-star-zero {
+			.ant-rate-star-second{
+				color: #adadad;
+			}
+        }
+    }
+}

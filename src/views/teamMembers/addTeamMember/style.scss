@@ -1,0 +1,15 @@
+@import "../../../components/common.scss";
+.client-POC{
+    margin-bottom: 24px;
+    .addclient{
+        margin-bottom: 16px;
+        background-color: #fff;
+        padding: 1.5rem;
+        border-radius: 4px;
+        font-size: 15px;
+        button {
+            width: 140px;
+            margin-right: 10px;
+        }
+    }
+}

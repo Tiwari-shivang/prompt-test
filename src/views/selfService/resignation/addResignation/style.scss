@@ -1,0 +1,26 @@
+@import "../../../../components/common.scss";
+
+.addResignation {
+	background-color: #fff;
+	padding: 1.5rem;
+	height: inherit;
+	border-radius: 4px;
+	font-size: 14px;
+
+	.headerRow {
+		font-size: 22px;
+		font-weight: bold;
+	}
+
+	.sameAsPermanent{
+		display: flex;
+		align-items: center;
+		input{
+			margin-right: 10px;
+		}
+	}
+	button {
+		width: 145px;
+		margin-right: 10px;
+	}
+}
