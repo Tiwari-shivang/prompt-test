@@ -5,22 +5,79 @@ import { useRecoilValue } from "recoil";
 import { authState } from "../../../recoil/authRecoil";
 import { useGetClientDetailWithProject } from "../../../query/projectHealth/clientDetailsProject/clientDetailProjectQuery";
 import { useCreateProjectDetail } from "../../../query/projectHealth/addProjectDetail/addProjectDetailQuery";
+import { useQueryClient } from "react-query";
 
 const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
   const empDetail = useRecoilValue(authState);
+  const [errorStepOne, setErrorStepOne] = useState({
+    project_type: false,
+    project_status: false,
+    pricing_model: false,
+    baseline_start_date: false,
+    csat_frequency: false,
+  });
+  const [errorStepTwo, setErrorStepTwo] = useState({
+    csat_frequency: false,
+    start_date: false,
+    end_date: false,
+    over_all_project: false
+  });
+  const [errorStepThree, setErrorStepThree] = useState({
+    risk_intensity: false
+  });
   const [currentStep, setCurrentStep] = useState(1);
   const [isOngoing, setIsOngoing] = useState(false);
   const handleBack = () => setCurrentStep((prev) => prev - 1);
+  const queryClient = useQueryClient();
   const { data: clientDetails, isLoading: isLoadingClientDetails } =
     useGetClientDetailWithProject(empDetail && empDetail.uuid);
   const {
     mutateAsync: addProjectHealthAsync,
     isLoading: isLoadingAddProjectHealth,
-  } = useCreateProjectDetail();
+  } = useCreateProjectHealth();
   const {
     mutateAsync: addProjectDetailAsync,
     isLoading: isLoadingAddProjectDetail,
-  } = useCreateProjectHealth();
+  } = useCreateProjectDetail();
+
+  const validationStep1 = () => {
+    const newErrors = {
+      project_type: !projectDetails.project_type,
+      project_status: !projectDetails.project_status,
+      pricing_model: !projectDetails.pricing_model,
+      baseline_start_date: !projectDetails.baseline_start_date,
+      csat_frequency: !projectDetails.csat_frequency,
+    };
+  
+    setErrorStepOne(newErrors);
+  
+    return !Object.values(newErrors).includes(true);
+  };
+  
+
+  const validationStep2 = () => {
+    const newErrors = {
+      csat_frequency: !projectDets.csat_frequency,
+      start_date: !projectDets.start_date,
+      end_date: !projectDets.end_date,
+      over_all_project: !projectDets.over_all_project
+    };
+  
+    setErrorStepTwo(newErrors);
+  
+    return !Object.values(newErrors).includes(true);
+  };
+
+  const validationStep3 = () => {
+    const newErrors = {
+      risk_intensity: !projectDets.risk_intensity
+    };
+  
+    setErrorStepThree(newErrors);
+  
+    return !Object.values(newErrors).includes(true);
+  }
+  
 
   const [projectDetails, setProjectDetails] = useState({
     external_Project_id: "",
@@ -33,26 +90,28 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
     csat_frequency: "",
     project_status: "",
   });
-  const [ projectDets, setProjectDets ] = useState({
+  const [projectDets, setProjectDets] = useState({
     project_detail_id: "",
     external_id: "",
     project_id: "",
     csat_frequency: "",
     csat_value: null,
     nps_value: null,
-    billable_count: null,     
+    billable_count: null,
     non_billable_count: null,
+    resource_projection: null,
     over_all_project: "",
     reason_for_status: "",
+    risk_intensity: "",
     open_risk: "",
     migration_step: "",
     additional_comment: "",
     start_date: "",
-    end_date: ""
-  })
+    end_date: "",
+  });
 
   const handleCancel = () => {
-    setCurrentStep(1);  
+    setCurrentStep(1);
     setProjectDetails({
       external_Project_id: "",
       project_id: "",
@@ -71,76 +130,116 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
       csat_frequency: "",
       csat_value: null,
       nps_value: null,
-      billable_count: null,     
+      billable_count: null,
       non_billable_count: null,
       over_all_project: "",
       reason_for_status: "",
+      risk_intensity: "",
       open_risk: "",
       migration_step: "",
       additional_comment: "",
       start_date: "",
-      end_date: ""
+      end_date: "",
     });
     handleClose();
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    console.log(projectDetails);
     if (currentStep < 3) {
-      setCurrentStep((prev) => prev + 1);
+      if(currentStep === 1 && !validationStep1()) {
+        return; // Stop submission if validation fails
+      }
+      if(currentStep === 2 && !validationStep2()){
+        return;
+      }
+      else{
+        setCurrentStep((prev) => prev + 1);
+      }
+      
     } else {
+      if(currentStep === 3 && !validationStep3()){
+        return;
+      }
       try {
-        // First API call: create project detail
-        const res = await addProjectDetailAsync(projectDetails);
-  
+        // Search through clientDetails to find matching external_project_id
+        let foundExternalProjectId = projectDetails.project_id;
+
+        for (const client of clientDetails) {
+          const matchingProject = client.external_projects?.find(
+            (project) =>
+              project.id.toString() === projectDetails.project_id.toString()
+          );
+          if (matchingProject) {
+            foundExternalProjectId = matchingProject.external_project_id;
+            break;
+          }
+        }
+
+        // Update projectDetails with found external_project_id
+        const updatedProjectDetails = {
+          ...projectDetails,
+          external_Project_id: foundExternalProjectId,
+        };
+
+        setProjectDetails(updatedProjectDetails);
+        console.log(updatedProjectDetails);
+        let requestBody = { ...updatedProjectDetails };
+        console.log(clientDetails);
+        const res = await addProjectDetailAsync(updatedProjectDetails);
+
         // Extract values from response
         const {
           id: project_detail_id,
           external_Project_id,
-          project_id,
-          baseline_start_date,
-          baseline_end_date,
+          project_id
+          // baseline_start_date,
+          // baseline_end_date,
         } = res;
-  
+
         // Construct second payload
         const projectHealthPayload = {
           ...projectDets,
           project_detail_id,
           external_id: external_Project_id,
-          project_id,
-          start_date: baseline_start_date,
-          end_date: baseline_end_date,
+          project_id
+          // start_date: baseline_start_date,
+          // end_date: baseline_end_date,
         };
-  
+
         // Second API call: create project health
         await addProjectHealthAsync(projectHealthPayload);
-  
+
         // Final cleanup
         handleClose();
         setCurrentStep(1);
+        queryClient.invalidateQueries([
+          "getProjectDetailHealthByManager",
+          empDetail && empDetail.uuid,
+        ]);
       } catch (error) {
         console.error("Error submitting project:", error);
         // Optionally show error UI here
       }
     }
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
-    if (name === "external_Project_id") {
+    console.log(name, value);
+    if (name === "external_Project_id" || name === "project_id") {
       const selectedClient = clientDetails.find(
         (c) => c.external_client_id.toString() === value
       );
       const firstProject = selectedClient?.external_projects?.[0];
-  
+
       setProjectDetails((prev) => ({
         ...prev,
         external_Project_id: value,
-        project_id: firstProject?.id || "",  // ✅ use the actual `id`
+        project_id: firstProject?.id || "", // ✅ use the actual `id`
       }));
-    } else {
+    }  else {
       setProjectDetails((prev) => ({
         ...prev,
         [name]: value,
@@ -150,13 +249,13 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
 
   const handleProjectDetsChange = (e) => {
     const { name, value } = e.target;
-  
+
     setProjectDets((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-  
+
   const StepIndicator = ({ currentStep }) => {
     const steps = {
       1: "Project Essentials",
@@ -232,43 +331,47 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
                 </Form.Group>
               </Col>
               <Col xs={6}>
-              <Form.Group className="mb-2">
-  <Form.Label className="label-font">Project Name</Form.Label>
-  <Form.Select
-    name="project_id"
-    value={projectDetails.project_id}
-    onChange={handleChange}
-    disabled={
-      isLoadingClientDetails || !projectDetails.external_Project_id
-    }
-  >
-    <option value="" disabled hidden>
-      Select Project
-    </option>
-    {clientDetails
-      ?.find(
-        (c) =>
-          c.external_client_id.toString() ===
-          projectDetails.external_Project_id.toString()
-      )
-      ?.external_projects?.map((project) => (
-        <option key={project.id} value={project.id}>
-          {project.external_project_id} {/* ✅ display readable name */}
-        </option>
-      ))}
-  </Form.Select>
-</Form.Group>
-
+                <Form.Group className="mb-2">
+                  <Form.Label className="label-font">Project Name</Form.Label>
+                  <Form.Select
+                    name="project_id"
+                    value={projectDetails.project_id}
+                    onChange={handleChange}
+                    disabled={
+                      isLoadingClientDetails ||
+                      !projectDetails.external_Project_id
+                    }
+                  >
+                    <option value="" disabled hidden>
+                      Select Project
+                    </option>
+                    {clientDetails
+                      ?.find(
+                        (c) =>
+                          c.external_client_id.toString() ===
+                          projectDetails.external_Project_id.toString()
+                      )
+                      ?.external_projects?.map((project) => (
+                        <option key={project.id} value={project.id}>
+                          {project.project_name}{" "}
+                          {/* ✅ display readable name */}
+                        </option>
+                      ))}
+                  </Form.Select>
+                </Form.Group>
               </Col>
             </Row>
             <Row>
               <Col xs={6}>
                 <Form.Group className="mb-2">
-                  <Form.Label className="label-font">Project Type</Form.Label>
+                  <Form.Label className="label-font">Project Type *</Form.Label>
                   <Form.Select
                     name="project_type"
+                    error={errorStepOne.project_type}
                     value={projectDetails.project_type}
                     onChange={handleChange}
+                    className={errorStepOne.project_type ? "is-invalid" : ""} // Add error class if needed
+                    required
                   >
                     <option value="" disabled hidden>
                       Select Project Type
@@ -283,16 +386,19 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
               </Col>
               <Col md={6}>
                 <Form.Group className="mb-2">
-                  <Form.Label className="label-font">Project Status</Form.Label>
+                  <Form.Label className="label-font">Project Status *</Form.Label>
                   <Form.Select
                     name="project_status"
+                    error={errorStepOne.project_status}
+                    className={errorStepOne.project_status ? "is-invalid" : ""}
                     value={projectDetails.project_status}
                     onChange={handleChange}
+                    required
                   >
                     <option value="" disabled hidden>
                       Select Project Status
                     </option>
-                    <option value="In-Progress">Development</option>
+                    <option value="development">Development</option>
                     <option value="hyperCare">Hyper Care</option>
                     <option value="qa">QA/UAT</option>
                     <option value="support">Support & Maintenance</option>
@@ -305,9 +411,11 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
             <Row>
               <Col xs={6}>
                 <Form.Group className="mb-2">
-                  <Form.Label className="label-font">Pricing Model</Form.Label>
+                  <Form.Label className="label-font">Pricing Model *</Form.Label>
                   <Form.Select
                     name="pricing_model"
+                    error={errorStepOne.pricing_model}
+                    className={errorStepOne.pricing_model ? "is-invalid" : ""}
                     value={projectDetails.pricing_model}
                     onChange={handleChange}
                   >
@@ -326,14 +434,13 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
                     Project Manager
                   </Form.Label>
                   <Form.Select
-      name="projectManager"
-      value={empDetail?.uuid || ""}
-     
-    >
-      <option value={empDetail?.uuid}>
-        {empDetail?.first_name || "Project Manager"}
-      </option>
-    </Form.Select>
+                    name="projectManager"
+                    value={empDetail?.uuid || ""}
+                  >
+                    <option value={empDetail?.uuid}>
+                      {empDetail?.first_name || "Project Manager"}
+                    </option>
+                  </Form.Select>
                 </Form.Group>
               </Col>
             </Row>
@@ -341,11 +448,14 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
               <Col xs={6}>
                 <Form.Group className="mb-2">
                   <Form.Label className="label-font">
-                    Baseline Start Date
+                    Baseline Start Date *
                   </Form.Label>
                   <Form.Control
                     type="date"
                     name="baseline_start_date"
+                    error={errorStepOne.baseline_start_date}
+                    className={
+                      errorStepOne.baseline_start_date ? "is-invalid" : ""  }// Add error class if needed
                     value={projectDetails.baseline_start_date}
                     onChange={handleChange}
                   />
@@ -403,9 +513,12 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
               </Col>
               <Col md={6}>
                 <Form.Group className="mb-2">
-                  <Form.Label className="label-font">CSAT Frequency</Form.Label>
+                  <Form.Label className="label-font">CSAT Frequency *</Form.Label>
                   <Form.Select
                     name="csat_frequency"
+                    error={errorStepOne.csat_frequency}
+                    className={
+                      errorStepOne.csat_frequency ? "is-invalid" : ""  }// Add error class if needed         
                     value={projectDetails.csat_frequency}
                     onChange={handleChange}
                   >
@@ -430,44 +543,67 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
             <Row>
               <Col xs={3}>
                 <Form.Group className="mb-2">
+                <Form.Label className="label-font">
+                    CSAT Frequency *
+                  </Form.Label>
                   <Form.Select
                     name="csat_frequency"
                     value={projectDets.csat_frequency}
                     onChange={handleProjectDetsChange}
+                    error={errorStepTwo.csat_frequency}
+                    className={errorStepTwo.csat_frequency ? "is-invalid" : ""} // Add error class if needed
                   >
                     <option value="" disabled hidden>
-                      Select Month
+                      Select Frequency
                     </option>
-                    <option value="january">January</option>
-                    <option value="february">February</option>
-                    <option value="march">March</option>
-                    <option value="april">April</option>
-                    <option value="may">May</option>
-                    <option value="june">June</option>
-                    <option value="july">July</option>
-                    <option value="august">August</option>
-                    <option value="september">September</option>
-                    <option value="october">October</option>
-                    <option value="november">November</option>
-                    <option value="december">December</option>
+                    <option value="ann">Annually</option>
+                    <option value="quar">Quarterly</option>
+                    <option value="monthly">Monthly</option>
                   </Form.Select>
                 </Form.Group>
               </Col>
               <Col xs={3}>
-                <Form.Group className="mb-4">
+                <Form.Group className="mb-2">
+                  <Form.Label className="label-font">
+                    Start Date *
+                  </Form.Label>
                   <Form.Control
-                    type="number"
-                    name="csatValue"
-                    // value={projectDets.csat_value}
+                    type="date"
+                    name="start_date"
+                    error={errorStepTwo.start_date} 
+                    className={
+                      errorStepTwo.start_date ? "is-invalid" : "" // Add error class if needed
+                    }
+                    value={projectDets.start_date}
                     onChange={handleProjectDetsChange}
-                    placeholder="Resource Projection"
                   />
                 </Form.Group>
               </Col>
-            </Row>
-            <Row className="mb-4">
               <Col xs={3}>
-                <Form.Group className="mb-4">
+                <Form.Group className="mb-2">
+                  <Form.Label className="label-font">
+                    End Date *
+                  </Form.Label>
+                  <Form.Control
+                    type="date"
+                    name="end_date"
+                    value={projectDets.end_date}
+                    error={errorStepTwo.end_date}
+                    className={   
+                      errorStepTwo.end_date ? "is-invalid" : "" // Add error class if needed
+                    }
+                    onChange={handleProjectDetsChange}
+                  />
+                </Form.Group>
+              </Col>
+              
+            </Row>
+            <Row>
+              <Col xs={3}>
+                <Form.Group className="mb-2">
+                <Form.Label className="label-font">
+                    CSAT Value
+                  </Form.Label>
                   <Form.Control
                     type="number"
                     name="csat_value"
@@ -478,20 +614,24 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
                 </Form.Group>
               </Col>
               <Col xs={3}>
-                <Form.Group className="mb-4">
+                <Form.Group className="mb-2">
+                <Form.Label className="label-font">
+                    NPS Value
+                  </Form.Label>
                   <Form.Control
                     type="number"
-                
                     name="nps_value"
                     value={projectDets.nps_value}
                     onChange={handleProjectDetsChange}
-                    
                     placeholder="NPS Value"
                   />
                 </Form.Group>
               </Col>
               <Col xs={3}>
-                <Form.Group className="mb-4">
+                <Form.Group className="mb-2">
+                <Form.Label className="label-font">
+                    Billable Count
+                  </Form.Label>
                   <Form.Control
                     type="number"
                     name="billable_count"
@@ -502,7 +642,10 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
                 </Form.Group>
               </Col>
               <Col xs={3}>
-                <Form.Group className="mb-5">
+                <Form.Group className="mb-2">
+                <Form.Label className="label-font">
+                    Non Billable Count
+                  </Form.Label>
                   <Form.Control
                     type="number"
                     name="non_billable_count"
@@ -514,14 +657,34 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
               </Col>
             </Row>
             <Row>
+            <Col xs={3}>
+                <Form.Group className="mb-3">
+                <Form.Label className="label-font">
+                Resource Projection
+                  </Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="resource_projection"
+                    value={projectDets.resource_projection}
+                    onChange={handleProjectDetsChange}
+                    placeholder="Resource Projection"
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
               <Col xs={6}>
-                <Form.Group className="mb-2">
+                <Form.Group >
                   <Form.Label className="label-font">
-                    Overall Project Status
+                    Overall Project Status *
                   </Form.Label>
                   <Form.Select
                     name="over_all_project"
                     value={projectDets.over_all_project}
+                    error={errorStepTwo.over_all_project}
+                    className={ 
+                      errorStepTwo.over_all_project ? "is-invalid" : "" // Add error class if needed  
+                    }
                     onChange={handleProjectDetsChange}
                   >
                     <option value="" disabled hidden>
@@ -529,6 +692,7 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
                     </option>
                     <option value="Amber">Amber</option>
                     <option value="Green">Green</option>
+                    <option value="Red">Red</option>
                   </Form.Select>
                 </Form.Group>
               </Col>
@@ -559,10 +723,13 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
             <Row className="mb-4">
               <Col xs={6}>
                 <Form.Group className="mb-4">
-                  <Form.Label className="label-font">Risk Intensity</Form.Label>
+                  <Form.Label className="label-font">Risk Intensity *</Form.Label>
                   <Form.Select
-                    name="riskIntensity"
+                    name="risk_intensity"
+                    value={projectDets.risk_intensity}
                     onChange={handleProjectDetsChange}
+                    error={errorStepThree.risk_intensity}
+                    className={errorStepThree.risk_intensity ? "is-invalid" : ""} // Add error class if needed
                   >
                     <option value="" disabled>
                       Select Risk Intensity
@@ -628,15 +795,14 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
     if (clientDetails?.length && !projectDetails.external_Project_id) {
       const firstClient = clientDetails[0];
       const firstProject = firstClient.external_projects?.[0];
-  
+
       setProjectDetails((prev) => ({
         ...prev,
         external_Project_id: firstClient.external_client_id,
-        project_id: firstProject?.id || "",  // ✅ store the actual `id` now
+        project_id: firstProject?.id || "", // ✅ store the actual `id` now
       }));
     }
   }, [clientDetails]);
-  
 
   return (
     <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
