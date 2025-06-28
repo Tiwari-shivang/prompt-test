@@ -1,0 +1,100 @@
+@import "../../../components/common.scss";
+
+.bugModal {
+    padding-right: 0 !important;
+    max-width: 500px;
+    right: 0px;
+    left: auto;
+    // height: 100%;
+    border-right: 1px solid #000;
+
+    .modal-dialog {
+        width: 100%;
+        // max-width: 100%;
+        margin: 0;
+        transform: translate(300px, 0px) !important;
+
+        .modal-content {
+            border-radius: 0;
+            border: none;
+            // height: 100vh;
+
+            .modal-header {
+                padding: 8px 1rem;
+
+                .modal-title {
+                    font-size: 18px;
+                }
+
+                button {
+                    font-size: 18px;
+                }
+
+                button.btn-close {
+                    background: transparent url("../../../assets/images/rightArrow.png") center/1em
+                        auto no-repeat;
+                }
+            }
+
+            .modal-body {
+                padding: 1rem;
+                height: calc(100vh - 165px);
+                overflow: auto;
+                p {
+                    font-size: 15px;
+                }
+
+                .HeadingName {
+                    color: $primaryBlue;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+
+    .iconAndName {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
+
+        .headPic {
+            height: 5rem;
+            width: 5rem;
+            min-width: 5rem;
+            overflow: hidden;
+            border-radius: 50%;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            outline: 6px solid white;
+
+            img {
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .nameText {
+            font-weight: 500;
+            font-size: 20px;
+        }
+
+        .helpText {
+            font-weight: 400;
+            font-size: 15px;
+        }
+    }
+
+    .blueBg {
+        position: absolute;
+        width: 100%;
+        height: calc(20px + 2.5rem);
+        background: linear-gradient(to right, $primaryBlue, #871cd5);
+    }
+}
+
+.bugModal.show {
+    .modal-dialog {
+        transform: translate(0px, 0px) !important;
+    }
+}

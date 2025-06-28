@@ -1,0 +1,100 @@
+@import "../../../../../components/common.scss";
+
+.card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    margin: 20px 0px;
+    border: none;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    box-shadow: 4px 4px 8px 3px #eee;
+    cursor: pointer;
+    .other-col {
+        padding: 20px 10px 20px 10px;
+    }
+
+    .requesterCol {
+        min-width: 120px;
+        display: flex;
+        align-items: center;
+        margin: 0;
+
+        .checkbox {
+            margin-right: 10px;
+        }
+
+        .headPic {
+            height: 2.5rem;
+            width: 2.5rem;
+            min-width: 2.5rem;
+            overflow: hidden;
+            border-radius: 50%;
+            margin-right: 10px;
+
+            img {
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .subjectCol {
+        min-width: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: end;
+        .overdueBadgeStyle {
+            border: 1px solid #ffdbe0;
+            background: #ffecf0;
+            color: #d14447;
+        }
+
+        .badge {
+            border-radius: 30px;
+            margin: 0;
+        }
+    }
+
+    .assignedToCol {
+        min-width: 10px;
+    }
+
+    .statusCol {
+        cursor: pointer;
+        .badge {
+            border-radius: 30px;
+            margin: 0;
+            padding: 5px 10px;
+            font-size: 1em;
+            min-width: 100px;
+        }
+        .openBadgeStyle {
+            border: 1px solid $primaryBlue;
+            background: none;
+            color: $primaryBlue;
+        }
+        .closedBadgeStyle {
+            border: 1px solid #767b80;
+            background: none;
+            color: #767b80;
+        }
+        .inProgressBadgeStyle {
+            border: 1px solid #ffd52e;
+            background: none;
+            color: #ffd52e;
+        }
+    }
+}
+.lowColor {
+    box-shadow: -4px 0px 0px -1px #6dd400, 4px 4px 8px 3px #eee;
+}
+.mediumColor {
+    box-shadow: -4px 0px 0px -1px $primaryBlue, 4px 4px 8px 3px #eee;
+}
+.highColor {
+    box-shadow: -4px 0px 0px -1px #ff6262, 4px 4px 8px 3px #eee;
+}

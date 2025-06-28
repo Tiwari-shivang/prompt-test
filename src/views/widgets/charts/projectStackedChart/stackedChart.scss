@@ -1,0 +1,17 @@
+.recharts-responsive-container{
+    font-size: 11px;
+    .recharts-legend-wrapper{
+        text-align: center;
+        .legend-item{
+            border:1px solid #E1E1E1;
+            padding: 7px 15px;
+            line-height: 0;
+            margin: 0 4px!important;
+            border-radius: 4px;
+            display: inline-block;
+            .recharts-surface{
+                margin-right: 4px;
+            }
+        }
+    }
+}

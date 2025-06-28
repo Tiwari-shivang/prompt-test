@@ -1,0 +1,58 @@
+@import "../../../components/common.scss";
+* {
+    // outline: 1px solid lightcyan;
+}
+.certificateSection {
+    background: #fff;
+    border-radius: 3px;
+	.react-bootstrap-table {
+		max-height: 176px;
+	
+		table {
+			min-width: 400px;
+			tbody {
+				tr {
+					border-bottom: transparent;
+					td {
+						.icons {
+							display: flex;
+							cursor: pointer;
+							justify-content: center;
+							.eyeIcon {
+								font-size: 18px;
+								margin-right: 6px;
+								color: $yellow;
+							}
+							.deleteIcon {
+								font-size: 18px;
+								margin-left: 4px;
+								color: #aa0404;
+							}
+						}
+
+						.skillNameCol{
+							width: 150px;
+							word-wrap: break-word;
+							overflow: wrap;
+						}
+					}
+				}
+			}
+		}
+	
+		.table-bordered > :not(caption) > * {
+			border-width: 0;
+		}
+	}
+    .certificateRow {
+        .icons {
+            display: flex;
+            justify-content: center;
+            .deleteIcon {
+                font-size: 18px;
+                margin-left: 10px;
+                color: #aa0404;
+            }
+        }
+    }
+}

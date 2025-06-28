@@ -1,0 +1,122 @@
+@import "../../../components/common.scss";
+@import "~antd/dist/antd.css";
+
+.QuickLinkSection {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 0.8rem;
+    height: 320px;
+
+    .titleSection {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        position: relative;
+
+        button {
+            padding: 4px 10px;
+            font-size: 12px;
+            border-radius: 4px;
+            position: absolute;
+            right: 0;
+        }
+    }
+
+    .quickAccessGroup {
+        line-height: 1;
+        height: 250px;
+        overflow-y: hidden;
+
+        &:hover {
+            overflow-y: auto;
+        }
+
+        .oneDocumentRow {
+            display: flex;
+            justify-content: space-between;
+
+            .delIcon {
+                outline: 1px solid #fd8091;
+                color: #c86472;
+                cursor: pointer;
+                font-size: 25px;
+                padding: 6px;
+                border-radius: 6px;
+                background: #ffd8db80;
+                &:hover {
+                    background: #ffd8db;
+                }
+            }
+
+            .quickAccess {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                padding: 3px 0;
+                margin: 5px 0;
+                border-bottom: 1px solid #f6f6f6;
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+
+                .pic {
+                    width: 2rem;
+                    height: 2rem;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    margin-right: 10px;
+                    display: flex;
+
+                    img {
+                        width: 60%;
+                        margin: auto;
+                    }
+                }
+
+                .pink {
+                    background-color: rgba(255, 128, 139, 0.4);
+                }
+
+                .blue {
+                    background-color: rgba(94, 129, 244, 0.4);
+                }
+
+                .quickAccessDetail {
+                    width: calc(100% - 2rem);
+
+                    p {
+                        margin-bottom: 0;
+                        font-weight: bold;
+                        line-height: 1.2;
+                        opacity: 0.7;
+
+                        &:nth-child(2) {
+                            font-size: 9px;
+                            opacity: 0.5;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .viewFullList {
+        text-align: center;
+
+        button {
+            font-size: 13px;
+            font-weight: 500px;
+            background: transparent;
+            border: none;
+            padding: 5px 0;
+            margin-bottom: 0;
+            text-decoration: none;
+            color: #000;
+            width: fit-content;
+            cursor: pointer;
+        }
+    }
+}
+.ant-select-dropdown {
+    z-index: 9999999;
+}

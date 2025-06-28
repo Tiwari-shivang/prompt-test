@@ -1,0 +1,147 @@
+@import "../../../../components/common.scss";
+
+.timesheet {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 16px 4px;
+
+    .headerRowMain {
+        flex-direction: column;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 10px;
+        background: white;
+
+        .calendarWrapper {
+            .ant-picker-calendar-date-content {
+                height: 18px;
+            }
+        }
+
+        .regBtn {
+            margin-right: 13px;
+        }
+
+        .dateNav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px 0px 5px 0px;
+
+            button {
+                padding: 0px 5px 5px 5px;
+                border: none;
+                font-size: 20px;
+                font-weight: bolder;
+                color: $primaryBlue;
+                background: none;
+            }
+
+            .dateInfo {
+                font-size: 16px;
+                margin: 0px 10px;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .nav-tabs {
+        // margin: 0px 12px;
+        .nav-item {
+            button {
+                @media screen and (max-width: 420px) {
+                    font-size: 12px;
+                    padding: 4px 8px;
+                }
+            }
+        }
+    }
+
+    .calendarTable {
+        table {
+            width: 100%;
+
+            thead {
+                tr {
+                    th {
+                        background: #623be30b;
+                        width: calc(100% / 7);
+                        font-size: 12px;
+                        white-space: nowrap;
+                        border: 1px solid rgba(65, 65, 65, 0.176);
+                    }
+                }
+            }
+
+            tbody {
+                border-top: 0;
+
+                tr {
+                    td {
+                        padding: 0.4rem;
+                        font-size: 12px;
+                        border: 1px solid rgba(97, 97, 97, 0.176);
+                        height: 70px;
+                        vertical-align: top;
+                        text-align: left;
+
+                        .note {
+                            font-size: 12px;
+                            background: #b2d7ae62;
+                            padding: 4px 4px;
+                            max-width: 100px;
+                            margin: 4px 2px 0px 2px;
+                            border-left: 4px solid #b2d7ae;
+                        }
+
+                        .date {
+                            font-size: 14px;
+                        }
+
+                        .date,
+                        .note {
+                            font-weight: 500;
+                        }
+
+                        .weekendCol {
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .timeMarkers {
+        padding: 0px 200px 0px 180px;
+        display: flex;
+
+        .lines,
+        .linesTerminalLeft,
+        .linesTerminalRight {
+            width: calc(100% / 9);
+            height: 10px;
+            border-top: 1px solid rgb(167, 167, 167);
+        }
+
+        .lines {
+            border-left: 1px solid rgb(167, 167, 167);
+        }
+
+        .linesTerminalRight {
+            border-right: 1px solid rgb(167, 167, 167);
+        }
+    }
+
+    .checkInOutTime {
+        padding: 2px 186px 0px 166px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            font-size: 12px;
+        }
+    }
+}

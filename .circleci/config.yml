@@ -1,0 +1,82 @@
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@4.0.0
+
+jobs:
+  build_and_push_frontend:
+    docker:
+      - image: cimg/node:18.20
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      - aws-cli/setup
+
+      - run:
+          name: Build and Push Frontend Docker Image
+          command: |
+            SHORT_SHA=${CIRCLE_SHA1:0:8}
+            IMAGE_NAME=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/hvt-korporate-dev-web-portal-frontend:$SHORT_SHA
+
+            docker build -f ./infra/dockerfiles/frontend.Dockerfile -t $IMAGE_NAME .
+
+            aws ecr get-login-password --region $AWS_REGION \
+              | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+
+            docker push $IMAGE_NAME
+
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - .
+
+  deploy_frontend:
+    docker:
+      - image: cimg/base:stable
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: ~/repo
+
+      - aws-cli/setup
+
+      - run:
+          name: Install kubectl
+          command: |
+            set -e
+            sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
+            sudo mkdir -p /etc/apt/keyrings
+            curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key \
+              | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+            echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /" \
+              | sudo tee /etc/apt/sources.list.d/kubernetes.list
+            sudo apt-get update && sudo apt-get install -y kubectl
+
+      - run:
+          name: Set up kubeconfig
+          command: |
+            mkdir -p ~/.kube
+            echo "$KUBECONFIG_B64" | base64 -d > ~/.kube/config
+
+      - run:
+          name: Deploy Frontend to Kubernetes
+          command: |
+            SHORT_SHA=${CIRCLE_SHA1:0:8}
+            IMAGE="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/hvt-korporate-dev-web-portal-frontend:$SHORT_SHA"
+            echo "Deploying $IMAGE to Kubernetes"
+
+            kubectl set image deployment/frontend-deployment frontend=$IMAGE --namespace=korporate-prod
+            kubectl rollout status deployment/frontend-deployment --namespace=korporate-prod
+
+workflows:
+  version: 2
+  build_and_deploy_frontend:
+    jobs:
+      - build_and_push_frontend
+      - deploy_frontend:
+          requires:
+            - build_and_push_frontend

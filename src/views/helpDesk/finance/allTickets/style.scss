@@ -1,0 +1,232 @@
+@import "../../../../components/common.scss";
+
+.nav {
+    .filter-buttons {
+        .list {
+            display: flex;
+            flex-direction: row;
+            justify-content: right;
+
+            Button {
+                border-radius: 3px;
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+.tools-list {
+    .list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        button {
+            border-radius: 30px;
+            margin-right: 10px;
+            border: none;
+            padding: 5px 10px;
+        }
+
+        .assign {
+            background: #eaf4fd;
+            color: #466792;
+        }
+
+        .merge {
+            background: #d6c2f8;
+            color: #432f37;
+        }
+
+        .escalate {
+            background: #edce89;
+            color: #8e6c0f;
+        }
+
+        .close {
+            background: #d6d8da;
+            color: #6a696a;
+        }
+
+        .delete {
+            background: #f3aaaa;
+            color: #75393f;
+        }
+    }
+}
+
+.allTickets {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 4px;
+    font-size: 15px;
+    min-width: 800px;
+
+    .react-bootstrap-table {
+        table {
+            border: none;
+
+            thead {
+                tr {
+                    th {
+                        border-bottom: 1px solid #e4e4e4;
+                    }
+                }
+            }
+
+            tbody {
+                border-top: 0;
+
+                tr {
+                    td {
+                        .subjectCol {
+                            .overdueBadgeStyle {
+                                border: 1px solid #ffdbe0;
+                                background: #ffecf0;
+                                color: #d14447;
+                            }
+                        }
+
+                        .statusCol {
+                            .openBadgeStyle {
+                                border: 1px solid $primaryBlue;
+                                background: none;
+                                color: $primaryBlue;
+                            }
+
+                            .closedBadgeStyle {
+                                border: 1px solid #767b80;
+                                background: none;
+                                color: #767b80;
+                            }
+
+                            .inProgressBadgeStyle {
+                                border: 1px solid #ffd52e;
+                                background: none;
+                                color: #ffd52e;
+                            }
+                        }
+
+                        padding: 0.5rem;
+                        font-size: 13px;
+                        border-bottom: 1px solid #f6f6f6;
+                        border-right: none;
+                        border-left: none;
+                        vertical-align: middle;
+
+                        .badge {
+                            margin-bottom: 5px;
+                            border-radius: 30px;
+                        }
+
+                        .requesterCol {
+                            display: flex;
+                            align-items: center;
+
+                            .checkbox {
+                                margin-right: 10px;
+                            }
+
+                            .headPic {
+                                height: 2rem;
+                                width: 2rem;
+                                min-width: 2rem;
+                                overflow: hidden;
+                                border-radius: 50%;
+                                margin-right: 10px;
+
+                                img {
+                                    width: 100%;
+                                    object-fit: cover;
+                                    margin-right: 10px;
+                                }
+                            }
+                        }
+
+                        .subjectCol {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+
+                            .badge {
+                                margin-bottom: 5px;
+                                border-radius: 30px;
+                            }
+
+                            .subject {
+                                margin: 0;
+                            }
+                        }
+
+                        .ticketCol {
+                            p {
+                                margin: 0;
+                                font-size: 1em;
+                            }
+                        }
+
+                        .assignedToCol {
+                            // min-width: 80px;
+                            margin: 0;
+                        }
+
+                        .statusCol {
+                            .badge {
+                                border-radius: 50px;
+                                padding: 5px 10px;
+                                min-width: 80px;
+                                font-size: 1em;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .table-bordered > :not(caption) > * {
+            border-width: 0;
+        }
+    }
+
+    .cardHeader {
+        display: flex;
+        border-bottom: 1px solid #ebebeb;
+        margin: 0;
+        padding: 0;
+
+        .cols {
+            margin-left: 4px;
+            text-align: flex-start;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .requesterCol {
+            width: 16%;
+        }
+
+        .subjectCol {
+            width: 14%;
+        }
+
+        .stateCol {
+            width: 13%;
+        }
+
+        .categoryCol {
+            width: 14%;
+        }
+
+        .priorityCol {
+            width: 14%;
+        }
+
+        .assignedToCol {
+            width: 14%;
+        }
+
+        .statusCol {
+            width: 14%;
+        }
+    }
+}

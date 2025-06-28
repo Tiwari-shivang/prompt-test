@@ -1,0 +1,108 @@
+.fullMessageModal{
+    padding-right: 0!important;
+    max-width: 700px;
+    right: 400px;
+    left: auto;
+    border-right: 1px solid #000;
+    .modal-dialog{
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        transform: translate(300px,0px)!important;
+        .modal-content{
+            border-radius: 0;
+            border:none;
+            .modal-header{
+                padding: 8px 1rem;
+                .modal-title{
+                    font-size: 18px;
+                }
+                button{
+                    font-size: 18px;
+                }
+                button.btn-close{
+                    background: transparent url('../../../assets/images/rightArrow.png') center/1em auto no-repeat;
+                }
+            }
+            .modal-body{
+                padding: 0 0 0 1rem;
+                height: calc(100vh - 41px);
+                .messageinner{
+                    background: #fff;
+                    border-radius: 5px;
+                    padding: 1rem;
+                    .message {
+                        display: flex;
+                        flex-direction: column;
+                        margin-top: 20px;
+                        .messageTop{
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 6px;
+                            .messageImg {
+                                width: 32px;
+                                height: 32px;
+                                border-radius: 50%;
+                                object-fit: cover;
+                                margin-right: 10px;
+                              }
+                            .messageBottom{
+                              font-size: 13px;
+                              margin: 0px;
+                          }
+                        }
+                        .messageText{
+                            padding: 10px;
+                            border-radius: 5px;
+                            background-color: #1877f2;
+                            color: white;
+                            max-width: 400px;
+                            font-size: 15px;
+                        }
+                      }
+                      .textArea{
+                        position: fixed;
+                        bottom: 0;
+                        right: 0;
+                        left: 0;
+                        background-color: #fff;
+                        display: flex;
+                        border:1px solid #EBF2F7;
+                        margin: 0 16px 16px;
+                        border-radius: 8px;
+                        textarea{
+                            border:none;
+                            resize: none;
+                            &:focus{
+                                box-shadow: none;
+                            }
+                        }
+                        button{
+                            display: flex;
+                            align-items: center;
+                            background-color: transparent;
+                            color: #1877f2;
+                        }
+                    }
+                }
+                  
+                  .message.own{
+                      align-items: flex-end;
+                      .messageImg {
+                          display: none;
+                      }
+                  }
+                  
+                  .message.own .messageText{
+                      background-color: rgb(245, 241, 241);
+                      color: black;
+                  }
+            }
+        }
+    }
+}
+.fullMessageModal.show{
+    .modal-dialog{
+        transform: translate(0px,0px)!important;
+    }
+}

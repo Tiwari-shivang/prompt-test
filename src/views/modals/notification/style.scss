@@ -1,0 +1,86 @@
+.notificationModal {
+	padding-right: 0 !important;
+	max-width: 400px;
+	right: 0px;
+	left: auto;
+	overflow-y: hidden;
+
+	.modal-dialog {
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		transform: translate(200px, 0px) !important;
+
+		.modal-content {
+			border-radius: 0;
+			border: none;
+
+			.modal-header {
+				padding: 8px 1rem;
+
+				.modal-title {
+					font-size: 18px;
+				}
+
+				button {
+					font-size: 13px;
+				}
+			}
+
+			.modal-body {
+				padding: 0 0 0 1rem;
+				height: calc(100vh - 41px);
+
+				.notificationSection {
+					overflow-y: auto;
+					//height: calc(100vh - 49px);
+
+					.notification {
+						display: flex;
+						align-items: center;
+						width: 100%;
+						padding: 8px 0;
+						border-bottom: 1px solid #f6f6f6;
+
+						.pic {
+							width: 2.5rem;
+							height: 2.5rem;
+							border-radius: 50%;
+							overflow: hidden;
+							margin-right: 5px;
+							.userIcon{
+								font-size: 26px;
+							}
+							// img {
+							// 	width: 100%;
+							// 	object-fit: cover;
+							// 	border-radius: 50%;
+							// }
+						}
+
+						.detail {
+							p {
+								margin-bottom: 0;
+								font-size: 13px;
+								font-weight: bold;
+								line-height: 1.5;
+								opacity: 0.7;
+
+								&:nth-child(2) {
+									font-size: 11px;
+									opacity: 0.5;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.notificationModal.show {
+	.modal-dialog {
+		transform: translate(0px, 0px) !important;
+	}
+}

@@ -1,0 +1,147 @@
+@import "../../../components/common.scss";
+
+.myTodoList {
+	background-color: #fff;
+	padding: 1rem 0.8rem;
+	border-radius: 3px;
+	height: 320px;
+
+	.titleRow {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+
+		.addTaskBtn {
+			padding: 4px 10px;
+			font-size: 12px;
+		}
+	}
+
+	.todoList {
+		max-height: 240px;
+		margin-top: 10px;
+
+		.noTaskText {
+			font-size: 12px;
+			padding: 10px 4px 4px 0px;
+			text-align: center;
+		}
+	}
+}
+
+.modal {
+	.modal-body {
+		.addTodoHeader {
+			font-size: 18px;
+			font-weight: bold;
+			text-align: center;
+		}
+	}
+}
+
+.lowStrip {
+	border-left: 3px solid #5cb85c;
+}
+
+.mediumStrip {
+	border-left: 3px solid #f0ad4e;
+}
+
+.highStrip {
+	border-left: 3px solid #d9534f;
+}
+
+.lowBackground {
+	background: #5cb85c20;
+}
+
+.mediumBackground {
+	background: #f0ac4e18;
+}
+
+.highBackground {
+	background: #d9544f15;
+}
+
+.todoCard {
+	margin: 0px 5px 16px 0px;
+	border-radius: 3px;
+	background: #ffffff;
+	box-shadow: 2px 2px 3px 1px #73737322;
+	padding: 0px 0px 10px 0px;
+
+	.head {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 2px 0px 0px 4px;
+
+		.priorityText {
+			font-size: 12px;
+			font-weight: 500;
+
+			.timeInfo {
+				background: rgb(255, 255, 255);
+				font-size: 10px;
+				padding: 2px 4px;
+				margin-left: 4px;
+				border-radius: 4px;
+			}
+
+			.lowPriority {
+				color: #5cb85c;
+			}
+
+			.mediumPriority {
+				color: #f0ad4e;
+			}
+
+			.highPriority {
+				color: #d9534f;
+			}
+
+			.priority {
+				padding: 0px 0px 0px 2px;
+				border-radius: px;
+				font-size: 11px;
+				font-weight: 500;
+			}
+		}
+
+		.delBtn,
+		.editBtn {
+			padding: 2px 4px;
+			font-size: 8px;
+			margin-right: 4px;
+		}
+
+	}
+
+	.todoTimeInfo {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 0px 0px 2px 4px;
+		justify-content: space-between;
+		align-items: center;
+		// border-bottom-right-radius: 5px;
+
+		.dateInfo {
+			font-size: 10px;
+			font-weight: 600;
+		}
+	}
+
+	.task {
+		font-size: 14px;
+		width: 100%;
+		overflow-x: hidden;
+		margin-left: 4px;
+		margin-top: 4px;
+	}
+}
+
+.deleteTodoModal {
+	p {
+		margin: 0;
+	}
+}

@@ -1,0 +1,8 @@
+@import "../../components/common.scss";
+
+.activeProjects {
+    height: calc(100vh - 202px);
+	.react-bootstrap-table{
+		height: calc(100vh - 294px);
+	}
+}

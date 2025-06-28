@@ -1,0 +1,116 @@
+@import "../../components/common.scss";
+
+.selfService {
+	padding-bottom: 24px;
+
+	.flexDiv {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.profileImgSection {
+		background-color: #fff;
+		border-radius: 3px;
+		padding: 32px 0;
+		text-align: center;
+		margin-bottom: 1rem;
+		height: 49%;
+
+		.imgSection {
+
+			.img {
+				width: 100px;
+				height: 100px;
+				overflow: hidden;
+				border-radius: 50%;
+				border: 1px solid #306EE3;
+				padding: 2px;
+				margin: 0 auto 14px;
+
+				img,
+				.userIcon {
+					width: 100%;
+					height: 100%;
+					border-radius: 50%;
+					object-fit: cover;
+				}
+			}
+
+			h4 {
+				margin-bottom: 0;
+			}
+
+			p {
+				font-weight: 600;
+				color: #306EE3;
+			}
+		}
+	}
+
+	.basicInfo {
+		background-color: #fff;
+		border-radius: 3px;
+		padding: 1rem;
+		height: 100%;
+
+		.infoTable {
+			.table {
+				margin-bottom: 0;
+
+				tbody {
+					tr {
+						td {
+							font-size: 11px;
+							border-bottom-color: #f6f6f6;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.reportingSection {
+		background-color: #fff;
+		border-radius: 3px;
+		padding: 1rem;
+		margin-bottom: 1rem;
+		height: 48%;
+
+		.projectManager {
+			display: flex;
+			align-items: center;
+
+			.projectManagerPic {
+				width: 3rem;
+				height: 3rem;
+				border-radius: 50%;
+				overflow: hidden;
+				padding: 1px;
+				border: 1px solid #ccc;
+				margin-right: 5px;
+
+				img,
+				.userIcon {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					border-radius: 50%;
+				}
+			}
+
+			p {
+				margin-bottom: 0;
+				font-size: 13px;
+
+				span {
+					font-weight: 600;
+					display: block;
+				}
+				&:hover{
+					cursor: pointer;
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+}

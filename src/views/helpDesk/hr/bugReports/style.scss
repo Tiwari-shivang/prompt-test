@@ -1,0 +1,97 @@
+@import "../../../../components/common.scss";
+
+.nav {
+	.filter-buttons {
+		.list {
+			display: flex;
+			flex-direction: row;
+			justify-content: right;
+
+			Button {
+				border-radius: 3px;
+				margin-left: 10px;
+			}
+		}
+	}
+}
+
+.tools-list {
+	.list {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+
+		button {
+			border-radius: 30px;
+			margin-right: 10px;
+			border: none;
+			padding: 5px 10px;
+		}
+
+		.assign {
+			background: #eaf4fd;
+			color: #466792;
+		}
+
+		.merge {
+			background: #d6c2f8;
+			color: #432f37;
+		}
+
+		.escalate {
+			background: #edce89;
+			color: #8e6c0f;
+		}
+
+		.close {
+			background: #d6d8da;
+			color: #6a696a;
+		}
+
+		.delete {
+			background: #f3aaaa;
+			color: #75393f;
+		}
+	}
+}
+
+.allBugReports {
+	background-color: #fff;
+	padding: 1.5rem;
+	border-radius: 4px;
+	font-size: 15px;
+	min-width: 900px;
+
+	.cardHeader {
+		display: flex;
+		border-bottom: 1px solid #ebebeb;
+		padding: 0px 10px 0px 30px;
+
+		.cols {
+			text-align: flex-start;
+			font-size: 14px;
+			font-weight: 500;
+			white-space: nowrap;
+		}
+
+		.bugNoCol {
+			width: 25%;
+		}
+
+		.subjectCol {
+			width: 25%;
+		}
+
+		.statusCol {
+			width: 20%;
+		}
+
+		.reportedByCol {
+			width: 24%;
+		}
+
+		.dateCol {
+			width: 6%;
+		}
+	}
+}

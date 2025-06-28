@@ -1,0 +1,75 @@
+@import "../../../components/common.scss";
+// *{
+// 	outline: 1px solid lightgrey;
+// }
+.nav {
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    .nameAndRoleInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        font-size: 14px;
+    }
+}
+.employeeTimesheetApproval {
+    // min-height: 500px;
+    height: calc(100vh - 200px);
+    span {
+        font-size: 15px;
+        display: flex;
+        justify-content: left;
+        margin-left: 2px;
+    }
+    .pagination {
+        margin-bottom: 0;
+    }
+    .pendingTable {
+        max-height: calc(100vh - 390px);
+    }
+    .approvalTable {
+        max-height: calc(100vh - 350px);
+    }
+
+    .react-bootstrap-table {
+        table {
+            tbody {
+                tr {
+                    border-bottom: 1px solid rgba(211, 211, 211, 0.542);
+                    td:nth-child(3) {
+                        word-break: break-word;
+						.actionCol{
+							.icon{
+								color: #dc3545;
+								font-size: 16px;
+								cursor: pointer;
+							}
+						}
+                    }
+                }
+            }
+        }
+    }
+}
+.employeeTimesheetModal {
+    .react-bootstrap-table {
+        table {
+            tbody {
+                tr {
+                    border-bottom: 1px solid rgba(211, 211, 211, 0.542);
+                    td:nth-child(3) {
+                        word-break: break-word;
+                        .actionCol {
+                            .icon {
+                                color: #dc3545;
+                                font-size: 16px;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

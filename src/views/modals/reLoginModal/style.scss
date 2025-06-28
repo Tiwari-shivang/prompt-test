@@ -1,0 +1,58 @@
+@import "../../../components/common.scss";
+
+.applyLeaveModal {
+    padding-right: 0 !important;
+    max-width: 550px;
+    right: 0px;
+    left: auto;
+    // border-right: 1px solid #000;
+
+    .modal-dialog {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        transform: translate(300px, 0px) !important;
+
+        .modal-content {
+            border-radius: 0;
+            border: none;
+
+            .modal-header {
+                padding: 8px 1rem;
+
+                .modal-title {
+                    font-size: 18px;
+                }
+
+                button {
+                    font-size: 18px;
+                }
+
+                button.btn-close {
+                    background: transparent url("../../../assets/images/rightArrow.png") center/1em
+                        auto no-repeat;
+                }
+            }
+
+            .modal-body {
+                padding: 1rem;
+                height: calc(100vh - 45px);
+
+                p {
+                    font-size: 15px;
+                }
+
+                .HeadingName {
+                    color: $primaryBlue;
+                    font-size: 18px;
+                }
+
+                .applyLeaveContent {
+                    overflow-y: auto;
+                    height: calc(100vh - 45px);
+                }
+            }
+        }
+    }
+}
+

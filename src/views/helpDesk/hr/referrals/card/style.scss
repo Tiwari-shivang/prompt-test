@@ -1,0 +1,58 @@
+.card {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0px 20px;
+	margin: 20px 0px;
+	border: none;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	box-shadow: 4px 4px 8px 3px #eee;
+
+	.cols {
+		padding: 20px 10px 20px 10px;
+	}
+
+	.bugNoCol {
+		min-width: 120px;
+		display: flex;
+		align-items: center;
+		margin: 0;
+
+		.checkbox {
+			margin-right: 10px;
+		}
+
+		.headPic {
+			height: 2.5rem;
+			width: 2.5rem;
+			overflow: hidden;
+			border-radius: 50%;
+			margin-right: 10px;
+
+			img {
+				width: 100%;
+				object-fit: cover;
+			}
+		}
+	}
+
+	.subjectCol {
+
+	}
+
+	.designationCol {}
+
+	.actionCol {
+		select {
+			padding: 4px;
+			font-size: 16px;
+		}
+	}
+
+	.reportedByCol {}
+
+	.dateCol {}
+}

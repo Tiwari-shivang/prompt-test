@@ -1,0 +1,30 @@
+@import "../../../components/common.scss";
+
+.faq {
+	.headerRow {
+		margin: 5px 0px 15px 0px;
+	}
+	
+	.buttonGroup {
+		display: flex;
+		justify-content: end;
+
+		select {
+			margin-right: 6px;
+			margin-bottom: 10px;
+			border-radius: 3px;
+			border-color: #dfdfdf;
+			padding: 0px 4px;
+			font-size: 13px;
+		}
+
+		.addBtn {
+			padding: 0px 11px;
+			font-size: 13px;
+			margin-right: 5px;
+			margin-bottom: 10px;
+			
+		}
+	}
+
+}

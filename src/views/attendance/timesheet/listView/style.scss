@@ -1,0 +1,169 @@
+@import "../../../../components/common.scss";
+
+.timesheet {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 16px 4px;
+
+    .headerRowMain {
+        flex-direction: column;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 10px;
+        background: white;
+
+        .regBtn {
+            margin-right: 13px;
+        }
+
+        .dateNav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px 0px 5px 0px;
+
+            Button {
+                padding: 0px 5px 5px 5px;
+                border: none;
+                font-size: 20px;
+                font-weight: bolder;
+                color: $primaryBlue;
+                background: none;
+            }
+
+            .dateInfo {
+                font-size: 16px;
+                margin: 0px 10px;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .listTable {
+        table {
+            border: none;
+            margin-bottom: 0;
+
+            thead {
+                tr {
+                    th {
+                        font-size: 12px;
+                        white-space: none;
+                        background: none;
+                        white-space: nowrap;
+                        border: none;
+                    }
+                }
+            }
+
+            tbody {
+                border-top: 0;
+
+                tr {
+                    td {
+                        padding: 0.4rem;
+                        font-size: 12px;
+                        border: none;
+                        .progressBarinfo {
+                            margin: 4px 2px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            height: 20px;
+                            position: relative;
+
+                            .dayInfo {
+                                margin-bottom: 0;
+                                border: 1px solid $yellow;
+                                background: white;
+                                z-index: 999;
+                                position: absolute;
+                                width: 54px;
+                                text-align: center;
+                                left: calc(50% - 25px);
+                                padding: 2px 4px 2px 2px;
+                                border-radius: 3px;
+                                font-size: 10px;
+                                font-weight: 500;
+                            }
+
+                            .terminalBullets,
+                            .terminalDot,
+                            .terminalDotInsideLeft,
+                            .terminalDotInsideRight {
+                                color: rgba(92, 92, 92, 0.378);
+                            }
+
+                            .terminalBullets {
+                                font-size: 9px;
+                            }
+
+                            .terminalDot {
+                                font-size: 5px;
+                                margin: 0px 1px;
+                            }
+
+                            .terminalDotInsideLeft {
+                                position: absolute;
+                                font-size: 5px;
+                                left: calc(44.4% - 2px);
+                            }
+
+                            .terminalDotInsideRight {
+                                position: absolute;
+                                font-size: 5px;
+                                right: calc(44.4% - 2px);
+                            }
+
+                            .progressBar {
+                                display: flex;
+                                height: 2px;
+                                width: 100%;
+                                margin: 0px 5px;
+                                background: rgb(235, 235, 235);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .table-bordered > :not(caption) > * {
+            border-width: 0;
+        }
+    }
+
+    .timeMarkers {
+        padding: 0px 200px 0px 180px;
+        display: flex;
+
+        .lines,
+        .linesTerminalLeft,
+        .linesTerminalRight {
+            width: calc(100% / 9);
+            height: 10px;
+            border-top: 1px solid rgb(167, 167, 167);
+        }
+
+        .lines {
+            border-left: 1px solid rgb(167, 167, 167);
+        }
+
+        .linesTerminalRight {
+            border-right: 1px solid rgb(167, 167, 167);
+        }
+    }
+
+    .checkInOutTime {
+        padding: 2px 186px 0px 166px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            font-size: 12px;
+        }
+    }
+}

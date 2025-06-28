@@ -1,0 +1,176 @@
+@import "../../../components/common.scss";
+@import "~antd/dist/antd.css";
+
+.addMemberMainDiv {
+    .clientButtonGroup {
+        text-align: right;
+
+        .editButton {
+            padding: 5px 15px;
+            font-size: 13px;
+
+            .icon {
+                margin-right: 4px;
+                margin-top: -3px;
+            }
+        }
+    }
+
+    .addclient {
+        background-color: #fff;
+        padding: 1.5rem;
+        border-radius: 4px;
+        font-size: 15px;
+        margin-bottom: 24px;
+        // height: 100px;
+
+        .labelAdmin {
+            padding: 8px;
+            width: 100%;
+            border: 1px solid lightgrey;
+            border-radius: 5px;
+            overflow: hidden;
+            .customImg {
+                display: flex;
+                font-size: 15px;
+                align-items: center;
+                height: 45px;
+                padding: 5px 25px;
+                img {
+                    height: 100%;
+                }
+                button {
+                    border: none;
+                    background-color: transparent;
+                    width: 25px !important;
+                    height: 25px !important;
+                    padding: 0px;
+                    position: absolute;
+                    top: 10px;
+                    right: 0px;
+                    z-index: 9;
+                    .crossIcon {
+                        font-size: 20px;
+                    }
+                }
+                
+                .icons {
+                    font-size: 35px;
+                    margin-right: 10px;
+                }
+                p {
+                    font-size: 16px;
+                    margin-bottom: 0;
+                }
+            }
+            .customStyle {
+                display: none;
+            }
+        }
+        .progressBarCss {
+            height: 50px;
+            .progressBarLine {
+                height: 7px !important;
+            }
+        }
+        label {
+            width: 100%;
+
+            .customImg {
+                border-radius: 5px;
+                padding: 1px 10px;
+                height: 205px;
+                p {
+                    margin-bottom: 0;
+                    font-size: 15px;
+                    display: flex;
+                    align-items: center;
+
+                    .icons {
+                        font-size: 30px;
+                        margin-left: 10px;
+                    }
+                }
+
+                img {
+                    max-width: 100%;
+                    object-fit: cover;
+                    max-height: 100%;
+                }
+            }
+        }
+
+        .customStyle {
+            display: none;
+        }
+        .downloadCsvContainer{
+            display: flex;
+            justify-content: end;
+        }
+
+        input {
+            font-size: 15px;
+        }
+
+        select {
+            font-size: 15px;
+        }
+
+        button {
+            width: 145px;
+            margin-right: 10px;
+        }
+    }
+
+    .datePick {
+        padding-right: 2px;
+    }
+}
+.equal-width-table {
+    table-layout: fixed;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+  
+  .equal-width-table th {
+    width: 16.66%;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-align: center;
+    vertical-align: middle;
+    border-color: #dee2e6;
+    // padding: 0.75rem 0.5rem;
+  }
+  
+  .equal-width-table td {
+    text-align: center;
+    vertical-align: middle;
+    border-color: #dee2e6;
+    // padding: 0.75rem 0.5rem;
+  }
+  
+  // Open Risk column specific styling - one line with ellipsis
+  .equal-width-table .open-risk-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+
+  .custom-modal {
+    max-width: 700px; 
+   
+    .modal-dialog {
+        max-width: 90%;
+        
+        @media (min-width: 1200px) {
+            max-width: 1100px;
+        }
+    }
+  }
+
+  .custom-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }

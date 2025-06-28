@@ -1,0 +1,146 @@
+@import "../../../components/common.scss";
+
+.detailsPlacementDriveLinedUp {
+	background-color: #fff;
+	padding: 1.5rem;
+	border-radius: 4px;
+	font-size: 15px;
+
+	.titleSection {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.cardCustomTitle {
+			@media screen and (max-width: 350px) {
+				font-size: 14px;
+			}
+		}
+
+		Button {
+			margin: 5px 0px;
+			padding: 4px 14px;
+		}
+	}
+
+	.emptyListTextPlacement {
+		height: 232px;
+	}
+
+	.react-bootstrap-table {
+		width: 100%;
+		height: 230px;
+
+		table {
+			border: none;
+
+			&>:not(caption)>* {
+				border-width: 0px 0;
+			}
+
+			thead {
+				tr {
+					th {
+						background: #F5F6F9;
+						text-align: center;
+						white-space: nowrap;
+						font-size: 12px;
+					}
+				}
+			}
+
+			tbody {
+				border-top: 0;
+
+				tr {
+					td {
+						.organiserCol {
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							.organiserPic {
+								width: 2.2rem;
+								height: 2.2rem;
+								border-radius: 50%;
+								overflow: hidden;
+								margin: 0px 8px;
+
+								img,
+								.userIcon {
+									width: 100%;
+									height: 100%;
+									object-fit: cover;
+									border-radius: 50%;
+								}
+							}
+
+							.organiserName {
+								font-size: 12px;
+								text-overflow: ellipsis;
+								margin: 0;
+
+							}
+						}
+
+						.positionCol {
+							.positionText {
+								text-overflow: ellipsis;
+								overflow: hidden;
+							}
+						}
+
+						.actionCol {
+							display: flex;
+							justify-content: center;
+							align-items: center;
+
+							.editIcon,
+							.deleteIcon {
+								font-size: 18px;
+								cursor: pointer;
+							}
+
+							.editIcon {
+								color: $yellow;
+								margin-right: 5px;
+							}
+
+							.deleteIcon {
+								color: $red;
+							}
+
+							.inner-buttons {
+								margin-left: 4px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	Col {
+		padding: 0;
+	}
+}
+
+.addModal {
+
+	form {
+		.label {
+			height: 138px;
+
+			.customImg {
+				height: 138px;
+
+				img {
+					max-width: 100%;
+					max-height: 100%;
+					object-fit: cover;
+				}
+			}
+		}
+	}
+
+}

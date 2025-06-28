@@ -1,0 +1,254 @@
+@import "../../../components/common.scss";
+*{
+	// outline: 1px solid lightgrey;
+}
+.memberDetail {
+    .titleSection {
+        background-color: #fff;
+        margin-bottom: 1rem;
+        border-radius: 3px;
+    }
+
+    .employee-Leave-Holiday {
+        background-color: #fff;
+        border-radius: 4px;
+        display: flex;
+        padding: 1.1rem 0;
+
+        .employeeSection {
+            width: 50%;
+            flex-basis: 50%;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+
+            &:nth-child(2) {
+                border-right: 1px solid #0667fd;
+                border-left: 1px solid #0667fd;
+            }
+
+            .img {
+                width: 2.2rem;
+                height: 2.2rem;
+                margin-right: 12px;
+                position: relative;
+
+                &::before {
+                    position: absolute;
+                    content: "";
+                    background: rgba(6, 103, 253, 0.2);
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 50%;
+                    top: 10px;
+                }
+
+                img {
+                    width: 80%;
+                    display: block;
+                    margin: 0 auto;
+                    // object-fit: cover;
+                }
+            }
+
+            .detail {
+                p {
+                    color: #0667fd;
+                    font-weight: 600;
+                    margin-bottom: 0;
+                    font-size: 12px;
+
+                    span {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+
+    .projectSummary {
+        background-color: #fff;
+        padding: 1rem;
+		
+        .summaryTable,
+        .empRating {
+            .react-bootstrap-table {
+                height: 326px;
+
+                table {
+                    thead {
+                        tr {
+                            th {
+                                background: #f5f6f9;
+                                font-size: 12px;
+                            }
+                        }
+                    }
+
+                    tbody {
+
+                        tr {
+                            border: 1px solid #f6f6f6;
+                            td {
+                                font-size: 11px;
+                                border: none;
+
+                                .headPic {
+                                    height: 1.5rem;
+                                    width: 1.5rem;
+                                    overflow: hidden;
+                                    border-radius: 50%;
+                                    margin-right: 5px;
+                                    border: 1px solid #000;
+
+                                    img,
+                                    .userIcon {
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
+                                        border: 1px solid #000;
+                                    }
+                                }
+
+                                .position {
+                                    // padding-right: 25px;
+                                    .positionDiv {
+                                        background-color: $primaryBlue;
+                                        color: #fff;
+                                        border-radius: 30px;
+                                        padding: 4px 20px 5px;
+                                    }
+
+                                    .newJoineePosition {
+                                        background-color: #e5f4ff;
+                                        text-align: center;
+                                        color: #019aff;
+                                        border-radius: 30px;
+                                        padding: 4px 20px 5px;
+                                        width: 75px;
+                                        display: block;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;
+                                        overflow: hidden;
+                                        cursor: pointer;
+                                    }
+                                }
+
+                                .projectManager {
+                                    display: flex;
+                                    align-items: center;
+                                    font-size: 10px;
+
+                                    .projectManagerPic {
+                                        cursor: pointer;
+                                        width: 2.2rem;
+                                        height: 2.2rem;
+                                        border-radius: 50%;
+                                        overflow: hidden;
+                                        margin-right: 5px;
+                                        cursor: pointer;
+
+                                        img,
+                                        .userIcon {
+                                            width: 100%;
+                                            height: 100%;
+                                            object-fit: cover;
+                                            border-radius: 50%;
+                                        }
+                                    }
+
+                                    .projectManagerName {
+                                        cursor: pointer;
+
+                                        p {
+                                            margin-bottom: 0;
+                                            font-size: 10px;
+
+                                            span {
+                                                font-weight: 600;
+                                                display: block;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .ActionIcon {
+                                    .acceptIcon {
+                                        color: #019aff;
+                                        text-decoration: none;
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .projectSummary {
+        border-radius: 3px;
+        .titleSection {
+                .list-of-project {
+                    select {
+                        font-size: 13px !important;
+                    }
+                }
+        }
+        .summaryTable {
+            .react-bootstrap-table {
+                height: 197px;
+            }
+        }
+    }
+
+    .memberDetailcurrentTask {
+        background-color: #fff;
+        padding: 1.5rem;
+        border-radius: 3px;
+        margin-bottom: 1rem;
+
+        h2 {
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .currentProject {
+            background-color: #fff;
+            border-radius: 3px;
+            font-size: 11px;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f6f6f6;
+
+            &:nth-last-child(1) {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+            .projectName {
+                font-size: 15px;
+                font-weight: bold;
+            }
+
+            .progressPriority {
+                display: flex;
+                align-items: center;
+                margin: 3px 0 10px;
+
+                span {
+                    margin-right: 10px;
+                    background-color: #fff2ca;
+                    font-size: 10px;
+                    padding: 0.1rem 0.8rem 0.15rem 0.4rem;
+                }
+
+                p {
+                    color: $primaryBlue;
+                    margin-bottom: 0;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}

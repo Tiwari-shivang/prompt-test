@@ -1,0 +1,25 @@
+.rating-feedback {
+
+	.employee-name {
+		h6 {
+			font-size: 15px;
+			margin-bottom: 0;
+		}
+
+		input {
+			display: none;
+			height: 1px;
+			width: 1px;
+		}
+	}
+
+	.employee-column {
+		&.empColRating {
+			display: flex;
+
+			.ratingCol {
+				display: flex;
+			}
+		}
+	}
+}

@@ -1,0 +1,93 @@
+@import "../../../components/common.scss";
+@import "antd/dist/antd.css";
+
+
+.employeeTimesheet {
+    height: calc(100vh - 207px);
+    
+    .calendarTab {
+		overflow: auto;
+    	height: calc(100vh - 301px);
+        .calendarColumn {
+            
+            .calendarWrapper {
+
+                .ant-picker-calendar-header {
+                    .ant-picker-calendar-mode-switch {
+                        display: none;
+                    }
+                    .ant-select-selector {
+                        span {
+                            pointer-events: none;
+                        }
+                    }
+                }
+                .ant-picker-calendar-date-content {
+                    height: 18px;
+                }
+            }
+        }
+        .noteSection {
+            .strip {
+                width: 30px;
+                height: 9px;
+                display: inline-block;
+                max-width: 35px;
+                border-radius: 2px;
+            }
+            .redStrip {
+                background: $dangerRed;
+            }
+            .yellowStrip {
+                background: $yellow;
+            }
+            .noteList {
+                li {
+                    font-size: 16px;
+                    &::marker {
+                        font-weight: 700;
+                        color: #5c5c5c;
+                    }
+                }
+            }
+        }
+        .legendSection {
+            div {
+                margin-left: 40px;
+                position: relative;
+                font-size: 14px;
+                &::after {
+                    position: absolute;
+                    border-radius: 2px;
+                    content: "";
+                    z-index: 99;
+                    left: -38px;
+                    top: 8px;
+                    width: 32px;
+                    height: 10px;
+                }
+            }
+            .approvedStrip::after {
+                background: $successGreen;
+            }
+            .pendingStrip::after {
+                background: #6c757d;
+            }
+            .rejectedStrip::after {
+                background: $dangerRed;
+            }
+            .notSubmittedStrip::after {
+                background: $yellow;
+            }
+            .holidayStrip::after {
+                background: $primaryBlue;
+            }
+            .leaveStrip::after {
+                background: #800080;
+            }
+        }
+    }
+}
+.ModelHeight {
+    height: 350px;
+}

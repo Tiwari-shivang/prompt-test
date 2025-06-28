@@ -1,0 +1,87 @@
+@import "../../../../components/common.scss";
+@import '~antd/dist/antd.css';
+.list{
+    .breadcrumb{
+        margin: 0;
+    }
+    .buttonGroup{
+        justify-content: right;
+        display: flex;
+    }
+    .card{
+        .card-body{
+            .react-bootstrap-table{
+                height: 354px;
+                table{
+                    border:none;
+                    thead{
+                        tr{
+                            
+                            th{
+                                border-bottom: 1px solid #e4e4e4;
+                                
+                            }
+                        }
+                    }
+                    tbody{
+                        border-top: 0;
+                        tr{
+                            td{
+                                border-bottom:1px solid #f6f6f6;
+                                
+                                .fullName{
+                                    p{
+                                        font-size: 13px;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;
+                                        overflow: hidden;
+                                        cursor: pointer;
+                                    }
+                                }
+                                .departmentHead{
+                                    display: flex;
+                                    align-items: center;
+                                    cursor: pointer;
+                                    .headPic{
+                                        height: 1.5rem;
+                                        width: 1.5rem;
+                                        overflow: hidden;
+                                        border-radius: 50%;
+                                        margin-right: 5px;
+                                        outline:0.1px solid #000;
+                                        img, .userIcon{
+                                            width: 100%;
+                                            height: 100%;
+                                            object-fit: cover;
+                                            border-radius: 50%;
+                                        }
+                                    }
+                                }
+                                .ActionIcon{
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    .icon{
+                                        font-size: 15px;
+                                        cursor: pointer;
+                                    }
+                                    .editIcon{
+                                        margin-right: 8px;
+                                    }
+                                    .deleteIcon{
+                                        color: $red;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .table-bordered>:not(caption)>* {
+                    border-width: 0;
+                }
+            }
+        }
+    }
+}
+.ant-select-dropdown{
+    z-index: 9999999;
+}

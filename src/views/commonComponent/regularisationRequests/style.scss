@@ -1,0 +1,176 @@
+@import "../../../components/common.scss";
+
+.allrequestsPage {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 4px;
+    font-size: 15px;
+    min-width: 800px;
+
+    .headerRowMain {
+        @media only screen and (max-width: 900px) {
+            flex-direction: column;
+        }
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 10px;
+        background: white;
+        border-radius: 5px;
+
+        .myRequestsText {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .dateNav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px 0px 5px 0px;
+
+            button {
+                padding: 0px 5px 5px 5px;
+                border: none;
+                font-size: 20px;
+                font-weight: bolder;
+                color: $primaryBlue;
+                background: none;
+                // margin: 8px 0px;
+            }
+
+            .dateInfo {
+                font-size: 15px;
+                margin: 0px 5px;
+                font-weight: 500;
+            }
+        }
+
+        .headerButtons {
+            display: flex;
+
+            .filterBtn {
+                font-size: 12px;
+                margin-right: 6px;
+            }
+        }
+    }
+
+    .react-bootstrap-table {
+        table {
+            border: none;
+            overflow: auto;
+            thead {
+                tr {
+                    th {
+                        .hourHeader,
+                        .statusHeader {
+                            display: flex;
+                            flex-direction: column;
+                            flex-basis: 50%;
+                            align-items: center;
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                border-top: 0;
+
+                tr {
+                    td {
+                        .old {
+                            border-bottom: 1px solid lightgrey;
+                            color: #414253;
+                        }
+
+                        .employeeCol {
+                            display: flex;
+                            align-items: center;
+
+                            .headPic {
+                                height: 2rem;
+                                width: 2rem;
+                                min-width: 2rem;
+                                overflow: hidden;
+                                border-radius: 50%;
+                                margin-right: 10px;
+
+                                img {
+                                    width: 100%;
+                                    object-fit: cover;
+                                    margin-right: 10px;
+                                }
+                            }
+                        }
+
+                        .attendanceDayCol {
+                            margin: 0;
+                        }
+
+                        .actionCol {
+                            display: flex;
+
+                            button {
+                                border-radius: 100px;
+                                font-size: 12px;
+                            }
+
+                            .approveBtn {
+                                margin-right: 6px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .table-bordered > :not(caption) > * {
+            border-width: 0;
+        }
+    }
+
+    .cardHeader {
+        display: flex;
+        border-bottom: 1px solid #ebebeb;
+        margin: 0;
+        padding: 0;
+
+        .cols {
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .requesterCol {
+            width: 23%;
+        }
+
+        .subjectCol {
+            width: 15%;
+        }
+
+        .stateCol {
+            width: 12%;
+        }
+
+        .categoryCol {
+            width: 12%;
+        }
+
+        .priorityCol {
+            width: 10%;
+        }
+
+        .assignedToCol {
+            width: 15%;
+        }
+
+        .statusCol {
+            width: 13%;
+        }
+    }
+}
