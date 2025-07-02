@@ -96,7 +96,7 @@ const Index = () => {
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
     const currentRows = transformedTableData.slice(indexOfFirstRow, indexOfLastRow);
     const totalPages = Math.ceil(transformedTableData.length / rowsPerPage);
-
+    console.log(currentRows)
     return {
       currentRows,
       totalPages,
@@ -119,8 +119,9 @@ const Index = () => {
   }, [paginationData.hasNext]);
 
   const handleRowClick = useCallback((project) => {
-    setSelectedProject(project.fullData); // fullData is still the parent project object
-    handleShowDetailModal(project.fullData);
+    console.log("project", project);
+    // setSelectedProject(project.fullData); // fullData is still the parent project object
+    // handleShowDetailModal(project.fullData);
   }, [handleShowDetailModal]);
 
   return (
@@ -221,7 +222,9 @@ const Index = () => {
                     paginationData.currentRows.map((project, index) => (
                       <tr 
                         key={`project-${project.id}-${index}`} 
-                        onClick={() => handleRowClick(project)} 
+                        onClick={() => {
+                          
+                        }} 
                         style={{ cursor: 'pointer' }}
                       >
                         <td>{project.externalProjectId}</td>

@@ -6,16 +6,18 @@ import { useUpdateProjectDetail } from "../../../query/projectHealth/updateProje
 import { useUpdateProjectHealth } from "../../../query/projectHealth/updateProjectHealth/updateProjectHealthQuery";
 import { useQueryClient } from "react-query";
 import { useGetClientDetailWithProject } from "../../../query/projectHealth/clientDetailsProject/clientDetailProjectQuery";
+import { useGetClientName } from "../../../query/projectHealth/getClientName/getClientNameQuery";
 
 const ProjectHealthDetail = ({ show, handleClose, projectData, latestHealth }) => {
-    console.log("latestHealth", latestHealth);
+    // console.log("latestHealth", latestHealth);
     const [isOngoing, setIsOngoing] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
     const queryClient = useQueryClient();
     const [updateStatus, setUpdateStatus] = useState({ type: '', message: '' });
     
     const empDetail = useRecoilValue(authState);
-    console.log(empDetail);
+    const { data: clientName, isLoading: isLoadingClientName } = useGetClientName(
+        projectData && projectData.external_Project_id );
     const { data: clientDetails, isLoading: isLoadingClientDetails } =
         useGetClientDetailWithProject(empDetail && empDetail.uuid);
     
@@ -113,13 +115,16 @@ const ProjectHealthDetail = ({ show, handleClose, projectData, latestHealth }) =
             });
 
             // Check if end date is ongoing
+            // console.log("projectName", projectData.project_name);
             setIsOngoing(!projectData.baseline_end_date);
         }
+        console.log("projectData", projectData);
     }, [projectData, empDetail]);
 
     const handleViewChange = (e) => {
         setViewData({ ...viewData, [e.target.name]: e.target.value });
     };
+    
 
     const mapProjectDetailData = () => {
         const percentCompleted = parseInt(viewData.completed.toString().replace('%', ''), 10) || 0;
@@ -158,8 +163,8 @@ const ProjectHealthDetail = ({ show, handleClose, projectData, latestHealth }) =
             risk_intensity: viewData.riskIntensity,
             migration_step: viewData.mitigationSteps,
             additional_comment: viewData.additionalComments,
-            start_date: viewData.baselineStart,
-            end_date: isOngoing ? null : viewData.baselineEnd
+            start_date: viewData.startDate,
+            end_date: viewData.endDate 
         };
     };
 
@@ -174,7 +179,7 @@ const ProjectHealthDetail = ({ show, handleClose, projectData, latestHealth }) =
 
         try {
             const projectDetailPayload = mapProjectDetailData();
-            console.log('Updating Project Detail:', projectDetailPayload);
+            // console.log('Updating Project Detail:', projectDetailPayload);
             
             const projectDetailResponse = await updateProjectDetailMutation.mutateAsync(projectDetailPayload);
             
@@ -183,7 +188,7 @@ const ProjectHealthDetail = ({ show, handleClose, projectData, latestHealth }) =
             }
 
             const projectHealthPayload = mapProjectHealthData();
-            console.log('Updating Project Health:', projectHealthPayload);
+            // console.log('Updating Project Health:', projectHealthPayload);
             
             const projectHealthResponse = await updateProjectHealthMutation.mutateAsync(projectHealthPayload);
             
@@ -246,13 +251,12 @@ const ProjectHealthDetail = ({ show, handleClose, projectData, latestHealth }) =
                             <Form.Label className="label-font">Client</Form.Label>
                             <Form.Select
                               name="client"
-                              value={viewData.client}
-                              onChange={handleViewChange}
+                              value={clientName}
                             >
-                              <option value="" disabled hidden>
+                              {/* <option value=""  disabled hidden>
                                 Client Name
-                              </option>
-                              <option value="66110000014715047">Hexaview</option>
+                              </option> */}
+                              <option disabled>{clientName}</option>
                             </Form.Select>
                           </Form.Group>
                         </Col>
@@ -267,7 +271,7 @@ const ProjectHealthDetail = ({ show, handleClose, projectData, latestHealth }) =
                               <option value="" disabled hidden>
                                 Select Project
                               </option>
-                              <option value="66110000016944335">HVT - Developer Productivity Platform</option>
+                              <option disabled >{viewData.projectName}</option>
                             </Form.Select>
                           </Form.Group>
                         </Col>
@@ -350,7 +354,7 @@ const ProjectHealthDetail = ({ show, handleClose, projectData, latestHealth }) =
                                 Select Project Manager
                               </option>
                               {empDetail ? (
-                                <option value={empDetail.uuid}>
+                                <option value={empDetail.uuid} disabled>
                                   {empDetail.first_name} {empDetail.last_name}
                                 </option>
                               ) : (

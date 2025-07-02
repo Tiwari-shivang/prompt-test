@@ -46,6 +46,8 @@ import { capitalizeFirstLetter } from "../../../utilits/usefulFunctions";
 import AddSkill from "../addSkill";
 import { authState } from "../../../recoil/authRecoil";
 import { useGetSkill } from "../../../query/skillManagement/getSkill/getSkillQuery";
+import { useDeleteSkill } from "../../../query/skillManagement/deleteSkill/deleteSkillQuery";
+import { useUpdateSkill } from "../../../query/skillManagement/updateSkill/updateSkillQuery";
 
 const AddMember = () => {
   const params = useParams();
@@ -62,199 +64,7 @@ const AddMember = () => {
   const authUser = useRecoilValue(authState);
   const empUuid = authUser?.uuid;
 
-  // Mock data for testing (keeping API integration code intact)
-  const mockSkillsData = [
-    {
-      "id": 1,
-      "employee_uuid": "eb7424c4-b2fc-4501-9b78-43d973d717ef",
-      "skill_uuid": "ef98372d-ad76-4ce6-9924-42f218f57221",
-      "skill_name": "Java",
-      "certificate_uuid": "d738ae90-7ce8-40d4-add8-a26c6f957913",
-      "is_certified": true,
-      "skill_rating_by_pm": 8,
-      "skills_remarks": "Outstanding Java development skills with Spring framework",
-      "remark_date": "2024-12-10",
-      "proficiency_level": "Expert",
-      "skill_version": "17.0.0",
-      "skill_type": "primary",
-      "start_date": "2023-01-15",
-      "end_date": "2025-01-15",
-      "certificate": "java-certification-2024",
-      "certificate_name": "Java Advanced Developer",
-      "last_evaluated": "2024-12-10T10:30:00.000000"
-    },
-    {
-      "id": 2,
-      "employee_uuid": "eb7424c4-b2fc-4501-9b78-43d973d717ef",
-      "skill_uuid": "ef98372d-ad76-4ce6-9924-42f218f57222",
-      "skill_name": "Python",
-      "certificate_uuid": null,
-      "is_certified": false,
-      "skill_rating_by_pm": 7,
-      "skills_remarks": "Strong Python fundamentals and data science libraries",
-      "remark_date": "2024-11-15",
-      "proficiency_level": "Advanced",
-      "skill_version": "3.11.0",
-      "skill_type": "primary",
-      "start_date": "2022-06-01",
-      "end_date": null,
-      "certificate": null,
-      "certificate_name": null,
-      "last_evaluated": "2024-11-15T14:20:00.000000"
-    },
-    {
-      "id": 3,
-      "employee_uuid": "eb7424c4-b2fc-4501-9b78-43d973d717ef",
-      "skill_uuid": "ef98372d-ad76-4ce6-9924-42f218f57223",
-      "skill_name": "Android",
-      "certificate_uuid": "e738ae90-7ce8-40d4-add8-a26c6f957914",
-      "is_certified": true,
-      "skill_rating_by_pm": 6,
-      "skills_remarks": "Good understanding of Android native development",
-      "remark_date": "2024-10-22",
-      "proficiency_level": "Intermediate",
-      "skill_version": "14.0",
-      "skill_type": "secondary",
-      "start_date": "2023-03-10",
-      "end_date": "2024-12-31",
-      "certificate": "android-developer-cert",
-      "certificate_name": "Android Certified Developer",
-      "last_evaluated": "2024-10-22T09:15:00.000000"
-    },
-    {
-      "id": 4,
-      "employee_uuid": "eb7424c4-b2fc-4501-9b78-43d973d717ef",
-      "skill_uuid": "ef98372d-ad76-4ce6-9924-42f218f57224",
-      "skill_name": "React-Native",
-      "certificate_uuid": null,
-      "is_certified": false,
-      "skill_rating_by_pm": 4,
-      "skills_remarks": "Learning React Native for cross-platform development",
-      "remark_date": "2024-09-30",
-      "proficiency_level": "Beginner",
-      "skill_version": "0.72.0",
-      "skill_type": "secondary",
-      "start_date": "2024-01-20",
-      "end_date": null,
-      "certificate": null,
-      "certificate_name": null,
-      "last_evaluated": "2024-09-30T16:45:00.000000"
-    },
-    {
-      "id": 5,
-      "employee_uuid": "eb7424c4-b2fc-4501-9b78-43d973d717ef",
-      "skill_uuid": "ef98372d-ad76-4ce6-9924-42f218f57225",
-      "skill_name": "JavaScript",
-      "certificate_uuid": "f738ae90-7ce8-40d4-add8-a26c6f957915",
-      "is_certified": true,
-      "skill_rating_by_pm": 7,
-      "skills_remarks": "Excellent JavaScript ES6+ and modern frameworks",
-      "remark_date": "2024-12-01",
-      "proficiency_level": "Advanced",
-      "skill_version": "ES2023",
-      "skill_type": "primary",
-      "start_date": "2022-11-05",
-      "end_date": "2025-11-05",
-      "certificate": "javascript-developer-cert",
-      "certificate_name": "JavaScript Certified Developer",
-      "last_evaluated": "2024-12-01T11:30:00.000000"
-    },
-    {
-      "id": 6,
-      "employee_uuid": "eb7424c4-b2fc-4501-9b78-43d973d717ef",
-      "skill_uuid": "ef98372d-ad76-4ce6-9924-42f218f57221",
-      "skill_name": "Java",
-      "certificate_uuid": "g738ae90-7ce8-40d4-add8-a26c6f957916",
-      "is_certified": true,
-      "skill_rating_by_pm": 9,
-      "skills_remarks": "Expert level Java enterprise development",
-      "remark_date": "2024-11-28",
-      "proficiency_level": "Expert",
-      "skill_version": "21.0.0",
-      "skill_type": "secondary",
-      "start_date": "2023-07-12",
-      "end_date": "2026-07-12",
-      "certificate": "java-enterprise-architect",
-      "certificate_name": "Java Enterprise Architect",
-      "last_evaluated": "2024-11-28T08:20:00.000000"
-    },
-    {
-      "id": 7,
-      "employee_uuid": "eb7424c4-b2fc-4501-9b78-43d973d717ef",
-      "skill_uuid": "ef98372d-ad76-4ce6-9924-42f218f57222",
-      "skill_name": "Python",
-      "certificate_uuid": null,
-      "is_certified": false,
-      "skill_rating_by_pm": 5,
-      "skills_remarks": "Good Python skills for automation and scripting",
-      "remark_date": "2024-08-15",
-      "proficiency_level": "Intermediate",
-      "skill_version": "3.12.0",
-      "skill_type": "secondary",
-      "start_date": "2023-09-18",
-      "end_date": null,
-      "certificate": null,
-      "certificate_name": null,
-      "last_evaluated": "2024-08-15T13:10:00.000000"
-    },
-    {
-      "id": 8,
-      "employee_uuid": "eb7424c4-b2fc-4501-9b78-43d973d717ef",
-      "skill_uuid": "ef98372d-ad76-4ce6-9924-42f218f57223",
-      "skill_name": "Android",
-      "certificate_uuid": "h738ae90-7ce8-40d4-add8-a26c6f957917",
-      "is_certified": true,
-      "skill_rating_by_pm": 8,
-      "skills_remarks": "Advanced Android development with Kotlin",
-      "remark_date": "2024-12-05",
-      "proficiency_level": "Advanced",
-      "skill_version": "14.0",
-      "skill_type": "primary",
-      "start_date": "2022-04-25",
-      "end_date": "2025-04-25",
-      "certificate": "android-kotlin-cert",
-      "certificate_name": "Android Kotlin Developer",
-      "last_evaluated": "2024-12-05T15:40:00.000000"
-    },
-    {
-      "id": 9,
-      "employee_uuid": "eb7424c4-b2fc-4501-9b78-43d973d717ef",
-      "skill_uuid": "ef98372d-ad76-4ce6-9924-42f218f57224",
-      "skill_name": "React-Native",
-      "certificate_uuid": null,
-      "is_certified": false,
-      "skill_rating_by_pm": 9,
-      "skills_remarks": "Expert React Native cross-platform development",
-      "remark_date": "2024-07-20",
-      "proficiency_level": "Expert",
-      "skill_version": "0.73.0",
-      "skill_type": "primary",
-      "start_date": "2021-08-10",
-      "end_date": null,
-      "certificate": null,
-      "certificate_name": null,
-      "last_evaluated": "2024-07-20T12:25:00.000000"
-    },
-    {
-      "id": 10,
-      "employee_uuid": "eb7424c4-b2fc-4501-9b78-43d973d717ef",
-      "skill_uuid": "ef98372d-ad76-4ce6-9924-42f218f57225",
-      "skill_name": "JavaScript",
-      "certificate_uuid": "i738ae90-7ce8-40d4-add8-a26c6f957918",
-      "is_certified": true,
-      "skill_rating_by_pm": 3,
-      "skills_remarks": "Learning modern JavaScript frameworks and tools",
-      "remark_date": "2024-11-10",
-      "proficiency_level": "Beginner",
-      "skill_version": "ES2024",
-      "skill_type": "secondary",
-      "start_date": "2024-05-01",
-      "end_date": "2025-05-01",
-      "certificate": "js-fundamentals",
-      "certificate_name": "JavaScript Fundamentals",
-      "last_evaluated": "2024-11-10T17:00:00.000000"
-    }
-  ];
+
 
   const {
     register,
@@ -297,6 +107,10 @@ const AddMember = () => {
     mutateAsync: updateMemberMutateAsync,
     isLoading: isLoadingUpdateMembers,
   } = useUpdateMembers();
+  const { mutateAsync: deleteSkillAsync, isLoading: isLoadingDeleteSkill } = 
+    useDeleteSkill();
+  const { mutateAsync: updateSkillAsync, isLoading: isLoadingUpdateSkill } = 
+    useUpdateSkill();
 
   const [csvFileState, setCsvFileState] = useState();
   const [csvFileName, setCsvFileName] = useState("");
@@ -423,7 +237,7 @@ const AddMember = () => {
 
   const [addSkillModal, setAddSkillModal] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState(null);
-  const [skillModalMode, setSkillModalMode] = useState('add'); // 'add', 'view', 'edit'
+  const [skillModalMode, setSkillModalMode] = useState('add'); // 'add', 'view'
   
   const handleOpenAddSkill = useCallback(() => {
     setSelectedSkill(null);
@@ -442,6 +256,91 @@ const AddMember = () => {
     setSkillModalMode('view');
     setAddSkillModal(true);
   }, []);
+
+  /**
+   * Handle skill deletion with proper error handling and loading states
+   * @param {Object} skill - The skill object to delete
+   * @returns {Promise<boolean>} - Success status of deletion
+   */
+  const handleDeleteSkill = useCallback(async (skill) => {
+    if (!skill?.skill_uuid || !empUuid) {
+      toaster("error", "Missing required data for skill deletion");
+      return false;
+    }
+
+    // Show confirmation dialog
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete the skill "${skill.skill_name || skill.skill_uuid}"?\n\nThis action cannot be undone.`
+    );
+
+    if (!confirmDelete) {
+      return false;
+    }
+
+    try {
+      await deleteSkillAsync({
+        employeeUuid: empUuid,
+        skillUuid: skill.skill_uuid
+      });
+
+      // Close the modal after successful deletion
+      setAddSkillModal(false);
+      setSelectedSkill(null);
+      setSkillModalMode('add');
+
+      return true;
+    } catch (error) {
+      console.error("Failed to delete skill:", error);
+      toaster("error", error.message || "Failed to delete skill");
+      return false;
+    }
+  }, [empUuid, deleteSkillAsync]);
+
+  /**
+   * Handle skill update with proper error handling and loading states
+   * @param {Object} skillData - The skill data to update
+   * @returns {Promise<boolean>} - Success status of update
+   */
+  const handleUpdateSkill = useCallback(async (skillData) => {
+    if (!skillData) {
+      toaster("error", "Missing required data for skill update");
+      return false;
+    }
+
+    try {
+      // Prepare the update data according to API specification
+      const updateData = {
+        id: skillData.id,
+        employee_uuid: empUuid,
+        skill_uuid: skillData.skill_uuid,
+        certificate_uuid: skillData.certificate_uuid || null,
+        is_certified: Boolean(skillData.is_certified),
+        skill_rating_by_pm: parseFloat(skillData.skill_rating_by_pm) || 0,
+        skills_remarks: skillData.skills_remarks || "",
+        remark_date: skillData.remark_date || "",
+        proficiency_level: skillData.proficiency_level || "",
+        skill_version: skillData.skill_version || "",
+        skill_type: skillData.skill_type || "",
+        start_date: skillData.start_date || "",
+        end_date: skillData.end_date || "",
+        certificate: skillData.certificate || "",
+        certificate_name: skillData.certificate_name || ""
+      };
+
+      await updateSkillAsync(updateData);
+
+      // Close the modal after successful update
+      setAddSkillModal(false);
+      setSelectedSkill(null);
+      setSkillModalMode('add');
+
+      return true;
+    } catch (error) {
+      console.error("Failed to update skill:", error);
+      toaster("error", error.message || "Failed to update skill");
+      return false;
+    }
+  }, [empUuid, updateSkillAsync]);
   const handleOnSubmitProject = (memberData) => {
     const newMemberData = {
       ...memberData,
@@ -1238,36 +1137,7 @@ const AddMember = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* Using mock data for now - API integration code kept intact above */}
-                      {mockSkillsData && mockSkillsData.length > 0 ? (
-                        mockSkillsData.map((skill, index) => (
-                          <tr 
-                            key={skill.id || index} 
-                            onClick={() => handleSkillRowClick(skill)}
-                            style={{ cursor: 'pointer' }}
-                            className="skill-table-row"
-                          >
-                            <td>{skill.skill_name}</td>
-                            <td>{skill.skill_type}</td>
-                            <td>{skill.proficiency_level}</td>
-                            <td>{skill.start_date}</td>
-                            <td>{skill.end_date || "--"}</td>
-                            <td>{skill.last_evaluated ? new Date(skill.last_evaluated).toLocaleDateString() : "--"}</td>
-                          </tr>
-                        ))
-                      ) : (
-                        <tr>
-                          <td colSpan="6" className="text-center py-4">
-                            <div className="text-muted">
-                              <h5>No Skill data available</h5>
-                              <p>Add Skills to see them here.</p>
-                            </div>
-                          </td>
-                        </tr>
-                      )}
-                      
-                      {/* 
-                      Original API integration code (commented out for now):
+                      {/* API integration for displaying employee skills */}
                       {isLoadingEmployeeSkills ? (
                         <tr>
                           <td colSpan="6" className="text-center py-4">
@@ -1278,8 +1148,13 @@ const AddMember = () => {
                         </tr>
                       ) : employeeSkills && employeeSkills.length > 0 ? (
                         employeeSkills.map((skill, index) => (
-                          <tr key={skill.id || index}>
-                            <td>{skill.skill_uuid}</td>
+                          <tr 
+                            key={skill.id || index} 
+                            onClick={() => handleSkillRowClick(skill)}
+                            style={{ cursor: 'pointer' }}
+                            className="skill-table-row"
+                          >
+                            <td>{skill.skill_name || skill.skill_uuid}</td>
                             <td>{skill.skill_type}</td>
                             <td>{skill.proficiency_level}</td>
                             <td>{skill.start_date}</td>
@@ -1297,7 +1172,6 @@ const AddMember = () => {
                           </td>
                         </tr>
                       )}
-                      */}
                     </tbody>
                   </Table>
                 </div>
@@ -1385,6 +1259,10 @@ const AddMember = () => {
         selectedSkill={selectedSkill}
         mode={skillModalMode}
         setMode={setSkillModalMode}
+        onDeleteSkill={handleDeleteSkill}
+        isDeleting={isLoadingDeleteSkill}
+        onUpdateSkill={handleUpdateSkill}
+        isUpdating={isLoadingUpdateSkill}
       />
     </div>
   );

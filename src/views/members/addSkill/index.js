@@ -1,4 +1,5 @@
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import PropTypes from "prop-types";
 import "./style.scss";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useCreateSkill } from "../../../query/skillManagement/addSkill/addSkillQuery";
@@ -7,8 +8,7 @@ import { useGetAllSkills } from "../../../query/skillManagement/getSkill/getSkil
 // Constants
 const MODAL_MODES = {
   ADD: 'add',
-  VIEW: 'view', 
-  EDIT: 'edit'
+  VIEW: 'view'
 };
 
 const SKILL_TYPES = [
@@ -42,7 +42,37 @@ const getInitialFormState = () => ({
   certificate: ""
 });
 
-const AddSkill = ({ show, handleClose, selectedSkill, mode, setMode }) => {
+/**
+ * AddSkill Modal Component
+ * 
+ * A comprehensive modal component for adding and viewing employee skills.
+ * Supports two modes: 'add' for creating new skills and 'view' for viewing/editing existing skills.
+ * In view mode, users can directly edit fields and update the skill.
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {boolean} props.show - Controls modal visibility
+ * @param {Function} props.handleClose - Callback to close the modal
+ * @param {Object|null} props.selectedSkill - Selected skill object for view mode
+ * @param {'add'|'view'} props.mode - Current modal mode
+ * @param {Function} props.setMode - Function to change modal mode
+ * @param {Function} [props.onDeleteSkill] - Callback for skill deletion
+ * @param {boolean} [props.isDeleting=false] - Loading state for delete operation
+ * @param {Function} [props.onUpdateSkill] - Callback for skill update
+ * @param {boolean} [props.isUpdating=false] - Loading state for update operation
+ * 
+ * @example
+ * <AddSkill
+ *   show={isModalOpen}
+ *   handleClose={() => setIsModalOpen(false)}
+ *   selectedSkill={selectedSkillData}
+ *   mode="view"
+ *   setMode={setModalMode}
+ *   onDeleteSkill={handleDelete}
+ *   isDeleting={isDeletingSkill}
+ * />
+ */
+const AddSkill = ({ show, handleClose, selectedSkill, mode, setMode, onDeleteSkill, isDeleting, onUpdateSkill, isUpdating }) => {
   // State management
   const [formData, setFormData] = useState(getInitialFormState());
   const [showCertificateFields, setShowCertificateFields] = useState(false);
@@ -54,9 +84,8 @@ const AddSkill = ({ show, handleClose, selectedSkill, mode, setMode }) => {
 
   // Computed values
   const isViewMode = mode === MODAL_MODES.VIEW;
-  const isEditMode = mode === MODAL_MODES.EDIT;
   const isAddMode = mode === MODAL_MODES.ADD;
-  const isFieldsDisabled = isViewMode;
+  const isFieldsDisabled = false; // Fields are always enabled for direct editing
 
   // Modal title computation
   const modalTitle = useMemo(() => {
@@ -147,38 +176,44 @@ const AddSkill = ({ show, handleClose, selectedSkill, mode, setMode }) => {
   }, [formData, showCertificateFields, createSkillAsync, handleClose, isAddMode]);
 
   // Mode change handlers
-  const handleEditClick = useCallback(() => {
-    setMode(MODAL_MODES.EDIT);
-  }, [setMode]);
+  const handleUpdateClick = useCallback(async () => {
+    if (!onUpdateSkill) {
+      console.error('Update callback not provided');
+      return;
+    }
 
-  const handleUpdateClick = useCallback(() => {
-    // TODO: Implement update functionality
-    console.log('Update skill:', formData);
-    // After update API call, switch back to view mode
-    // setMode(MODAL_MODES.VIEW);
-  }, [formData]);
+    try {
+      const success = await onUpdateSkill(formData);
+      // Modal will be closed by the parent component if update is successful
+      if (!success) {
+        console.warn('Skill update was cancelled or failed');
+      }
+    } catch (error) {
+      console.error('Error during skill update:', error);
+    }
+  }, [formData, onUpdateSkill]);
 
   const handleDeleteClick = useCallback(async () => {
-    if (window.confirm('Are you sure you want to delete this skill?')) {
-      console.log('Delete skill:', selectedSkill);
-      // TODO: Implement delete API call
-      handleClose();
+    if (!onDeleteSkill) {
+      console.error('Delete callback not provided');
+      return;
     }
-  }, [selectedSkill, handleClose]);
+
+    try {
+      const success = await onDeleteSkill(selectedSkill);
+      // Modal will be closed by the parent component if deletion is successful
+      if (!success) {
+        console.warn('Skill deletion was cancelled or failed');
+      }
+    } catch (error) {
+      console.error('Error during skill deletion:', error);
+    }
+  }, [selectedSkill, onDeleteSkill]);
 
   const handleCancelClick = useCallback(() => {
-    if (isEditMode) {
-      // Reset to original data and switch to view mode
-      if (originalFormData) {
-        setFormData(originalFormData);
-        setShowCertificateFields(originalFormData.is_certified || false);
-      }
-      setMode(MODAL_MODES.VIEW);
-    } else {
-      // Close modal for view/add modes
-      handleClose();
-    }
-  }, [isEditMode, originalFormData, setMode, handleClose]);
+    // Close modal for both view and add modes
+    handleClose();
+  }, [handleClose]);
 
   // Render form field with consistent styling
   const renderFormField = (label, name, type = "text", options = null, required = false) => (
@@ -245,18 +280,20 @@ const AddSkill = ({ show, handleClose, selectedSkill, mode, setMode }) => {
           <Button
             variant="primary"
             type="button"
-            onClick={handleEditClick}
+            onClick={handleUpdateClick}
+            disabled={isUpdating}
             style={{ fontSize: "14px" }}
           >
-            Edit
+            {isUpdating ? "Updating..." : "Update"}
           </Button>
           <Button
             variant="danger"
             type="button"
             onClick={handleDeleteClick}
+            disabled={isDeleting}
             style={{ fontSize: "14px" }}
           >
-            Delete
+            {isDeleting ? "Deleting..." : "Delete"}
           </Button>
           <Button
             variant="secondary"
@@ -270,28 +307,7 @@ const AddSkill = ({ show, handleClose, selectedSkill, mode, setMode }) => {
       );
     }
 
-    if (isEditMode) {
-      return (
-        <>
-          <Button
-            variant="primary"
-            type="button"
-            onClick={handleUpdateClick}
-            style={{ fontSize: "14px" }}
-          >
-            Update
-          </Button>
-          <Button
-            variant="secondary"
-            type="button"
-            onClick={handleCancelClick}
-            style={{ fontSize: "14px" }}
-          >
-            Cancel
-          </Button>
-        </>
-      );
-    }
+
 
     return null;
   };
@@ -402,6 +418,44 @@ const AddSkill = ({ show, handleClose, selectedSkill, mode, setMode }) => {
       </Modal.Footer>
     </Modal>
   );
+};
+
+// PropTypes for type safety and documentation
+AddSkill.propTypes = {
+  show: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  selectedSkill: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    skill_uuid: PropTypes.string,
+    skill_name: PropTypes.string,
+    employee_uuid: PropTypes.string,
+    certificate_uuid: PropTypes.string,
+    is_certified: PropTypes.bool,
+    skill_rating_by_pm: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    skills_remarks: PropTypes.string,
+    remark_date: PropTypes.string,
+    proficiency_level: PropTypes.string,
+    skill_version: PropTypes.string,
+    skill_type: PropTypes.string,
+    start_date: PropTypes.string,
+    end_date: PropTypes.string,
+    certificate_name: PropTypes.string,
+    certificate: PropTypes.string,
+  }),
+  mode: PropTypes.oneOf(['add', 'view']).isRequired,
+  setMode: PropTypes.func.isRequired,
+  onDeleteSkill: PropTypes.func,
+  isDeleting: PropTypes.bool,
+  onUpdateSkill: PropTypes.func,
+  isUpdating: PropTypes.bool,
+};
+
+AddSkill.defaultProps = {
+  selectedSkill: null,
+  onDeleteSkill: null,
+  isDeleting: false,
+  onUpdateSkill: null,
+  isUpdating: false,
 };
 
 export default AddSkill;

@@ -11,12 +11,11 @@ import { useUpdateProjectDetail } from "../../../query/projectHealth/updateProje
 import { useUpdateProjectHealth } from "../../../query/projectHealth/updateProjectHealth/updateProjectHealthQuery";
 import "./style.scss";
 
-
 const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
   const empDetail = useRecoilValue(authState);
   const [projectOptions, setProjectOptions] = useState([]);
   const [errorStepOne, setErrorStepOne] = useState({
-    external_client_id:false,
+    external_client_id: false,
     project_id: false,
     project_type: false,
     project_status: false,
@@ -28,10 +27,10 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
     csat_frequency: false,
     start_date: false,
     end_date: false,
-    over_all_project: false
+    over_all_project: false,
   });
   const [errorStepThree, setErrorStepThree] = useState({
-    risk_intensity: false
+    risk_intensity: false,
   });
   const [currentStep, setCurrentStep] = useState(1);
   const [isOngoing, setIsOngoing] = useState(false);
@@ -49,7 +48,7 @@ const AddProjectHealth = ({ show, handleClose, onSubmit }) => {
   } = useCreateProjectDetail();
 
   const { mutateAsync: updateProjectDetailAsync } = useUpdateProjectDetail();
-const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
+  const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
 
   const validationStep1 = () => {
     const newErrors = {
@@ -60,35 +59,33 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
       baseline_start_date: !projectDetails.baseline_start_date,
       csat_frequency: !projectDetails.csat_frequency,
     };
-  
+
     setErrorStepOne(newErrors);
-  
+
     return !Object.values(newErrors).includes(true);
   };
-  
 
   const validationStep2 = () => {
     const newErrors = {
       start_date: !projectDets.start_date,
       end_date: !projectDets.end_date,
-      over_all_project: !projectDets.over_all_project
+      over_all_project: !projectDets.over_all_project,
     };
-  
+
     setErrorStepTwo(newErrors);
-  
+
     return !Object.values(newErrors).includes(true);
   };
 
   const validationStep3 = () => {
     const newErrors = {
-      risk_intensity: !projectDets.risk_intensity
+      risk_intensity: !projectDets.risk_intensity,
     };
-  
+
     setErrorStepThree(newErrors);
-  
+
     return !Object.values(newErrors).includes(true);
-  }
-  
+  };
 
   const [projectDetails, setProjectDetails] = useState({
     external_Project_id: "",
@@ -120,12 +117,10 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
     start_date: "",
     end_date: "",
   });
-  const { data: projectDetailData, refetch: refetchProjectDetail } = useGetProjectDetailByProjectId(
-    projectDetails.external_Project_id,
-    {
-      enabled: false 
-    }
-  );
+  const { data: projectDetailData, refetch: refetchProjectDetail } =
+    useGetProjectDetailByProjectId(projectDetails.external_Project_id, {
+      enabled: false,
+    });
 
   useEffect(() => {
     if (show && projectDetails.external_Project_id) {
@@ -135,7 +130,7 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
 
   useEffect(() => {
     if (projectDetailData) {
-      setProjectDetails(prev => ({
+      setProjectDetails((prev) => ({
         ...prev,
         project_type: projectDetailData.project_type || "",
         project_status: projectDetailData.project_status || "",
@@ -146,10 +141,12 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
         csat_frequency: projectDetailData.csat_frequency || "",
       }));
 
-     
-      if (projectDetailData.project_health_list && projectDetailData.project_health_list.length > 0) {
+      if (
+        projectDetailData.project_health_list &&
+        projectDetailData.project_health_list.length > 0
+      ) {
         const healthData = projectDetailData.project_health_list[0];
-        setProjectDets(prev => ({
+        setProjectDets((prev) => ({
           ...prev,
           csat_frequency: healthData.csat_frequency || "",
           csat_value: healthData.csat_value || 0,
@@ -183,6 +180,7 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
       csat_frequency: "",
       project_status: "",
     });
+    setProjectOptions([]);
     setProjectDets({
       project_detail_id: "",
       external_id: "",
@@ -201,9 +199,8 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
       start_date: "",
       end_date: "",
     });
-    setErrorStepOne
-({
-      external_client_id: false,    
+    setErrorStepOne({
+      external_client_id: false,
       project_id: false,
       project_type: false,
       project_status: false,
@@ -218,67 +215,101 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(projectDetails);
-  
+
     if (currentStep < 3) {
       if (currentStep === 1 && !validationStep1()) return;
       if (currentStep === 2 && !validationStep2()) return;
       setCurrentStep((prev) => prev + 1);
     } else {
       if (currentStep === 3 && !validationStep3()) return;
-  
-      try { 
+
+      try {
         let foundExternalProjectId = projectDetails.project_id;
         for (const client of clientDetails) {
           const matchingProject = client.external_projects?.find(
-            (project) => project.id.toString() === projectDetails.project_id.toString()
+            (project) =>
+              project.id.toString() === projectDetails.project_id.toString()
           );
           if (matchingProject) {
             foundExternalProjectId = matchingProject.external_project_id;
             break;
           }
         }
-  
+
         const updatedProjectDetails = {
           ...projectDetails,
           external_Project_id: foundExternalProjectId,
         };
-  
+
         setProjectDetails(updatedProjectDetails);
-  
-        const { external_client_id, ...cleanedProjectDetails } = updatedProjectDetails;
-  
+
+        const { external_client_id, ...cleanedProjectDetails } =
+          updatedProjectDetails;
+
         let res;
-  
+
         if (projectDetailData && projectDetailData.id) {
           res = await updateProjectDetailAsync({
             ...cleanedProjectDetails,
-            id: projectDetailData.id, 
+            id: projectDetailData.id,
           });
-  
+
           await addProjectHealthAsync({
             ...projectDets,
             project_detail_id: res.id || cleanedProjectDetails.id,
-            external_id: res.external_Project_id || cleanedProjectDetails.external_Project_id,
+            external_id:
+              res.external_Project_id ||
+              cleanedProjectDetails.external_Project_id,
             project_id: res.project_id || cleanedProjectDetails.project_id,
-            csat_frequency: projectDetails.csat_frequency
+            csat_frequency: projectDetails.csat_frequency,
           });
-  
+
           console.log("Updated Project Detail & Added Project Health.");
         } else {
           res = await addProjectDetailAsync(cleanedProjectDetails);
-  
+
           await addProjectHealthAsync({
             ...projectDets,
             project_detail_id: res.id,
             external_id: res.external_Project_id,
             project_id: res.project_id,
-            csat_frequency: projectDetails.csat_frequency
+            csat_frequency: projectDetails.csat_frequency,
           });
-  
+
           console.log("Added both Project Detail & Project Health.");
         }
-  
+
         handleClose();
+        setProjectDetails({
+          external_Project_id: "",
+          project_id: "",
+          project_type: "",
+          pricing_model: "",
+          baseline_start_date: "",
+          baseline_end_date: "",
+          percent_complition: "",
+          csat_frequency: "",
+          project_status: "",
+        });
+        setProjectOptions([]);
+        setProjectDets({
+          project_detail_id: "",
+          external_id: "",
+          project_id: "",
+          csat_frequency: "",
+          csat_value: null,
+          nps_value: null,
+          billable_count: null,
+          non_billable_count: null,
+          over_all_project: "",
+          reason_for_amber_or_red: "",
+          risk_intensity: "",
+          open_risk: "",
+          migration_step: "",
+          additional_comment: "",
+          start_date: "",
+          end_date: "",
+        });
         setCurrentStep(1);
         queryClient.invalidateQueries([
           "getProjectDetailHealthByManager",
@@ -289,42 +320,45 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
       }
     }
   };
-  
-  
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
     if (name === "project_id") {
-      if(value === ""){
+      if (value === "") {
         setProjectDetails((prev) => ({
           ...prev,
           external_Project_id: "",
-          project_id: "", 
+          project_id: "",
         }));
         return;
       }
-      const {external_Project_id} = projectOptions.find(p => p.key === Number(value));
+      const { external_Project_id } = projectOptions.find(
+        (p) => p.key === Number(value)
+      );
       setProjectDetails((prev) => ({
         ...prev,
         external_Project_id: external_Project_id,
-        project_id: value, 
+        project_id: value,
       }));
-    }  
-    if(name === "external_client_id"){
+    }
+    if (name === "external_client_id") {
       console.log(value);
-      const projects = clientDetails.find(c => c.external_client_id === Number(value)).external_projects;
-      setProjectOptions(projects.map((project) => ({
-        key: project.id,
-        value: project.project_name,
-        external_Project_id: project.external_project_id
-      })));
+      const projects = clientDetails.find(
+        (c) => c.external_client_id === Number(value)
+      ).external_projects;
+      setProjectOptions(
+        projects.map((project) => ({
+          key: project.id,
+          value: project.project_name,
+          external_Project_id: project.external_project_id,
+        }))
+      );
       setProjectDetails((prev) => ({
         ...prev,
         [name]: value,
       }));
-    }
-    else {
+    } else {
       setProjectDetails((prev) => ({
         ...prev,
         [name]: value,
@@ -394,14 +428,32 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
               <Col xs={6}>
                 <Form.Group className="mb-2">
                   <Form.Label className="label-font">Client</Form.Label>
-                  <Form.Select
+                  {/* <Form.Select
                     name="external_client_id"
                     value={projectDetails.external_client_id}
                     onChange={handleChange}
                     disabled={isLoadingClientDetails}
                     
                   >
-                    <option value="">
+                    <option value="" >
+                      Client Name
+                    </option>
+                    {clientDetails?.map((client) => (
+                      <option
+                        key={client.external_client_id}
+                        value={client.external_client_id}
+                      >
+                        {client.client_name}
+                      </option>
+                    ))}
+                  </Form.Select> */}
+                  <Form.Select
+                    name="external_client_id"
+                    value={projectDetails.external_client_id}
+                    onChange={handleChange}
+                    disabled={isLoadingClientDetails}
+                  >
+                    <option value="" disabled={!!projectDetails.project_id}>
                       Client Name
                     </option>
                     {clientDetails?.map((client) => (
@@ -448,7 +500,7 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
                     error={errorStepOne.project_type}
                     value={projectDetails.project_type}
                     onChange={handleChange}
-                    className={errorStepOne.project_type ? "is-invalid" : ""} 
+                    className={errorStepOne.project_type ? "is-invalid" : ""}
                     required
                   >
                     <option value="" disabled hidden>
@@ -464,7 +516,9 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
               </Col>
               <Col md={6}>
                 <Form.Group className="mb-2">
-                  <Form.Label className="label-font">Project Status *</Form.Label>
+                  <Form.Label className="label-font">
+                    Project Status *
+                  </Form.Label>
                   <Form.Select
                     name="project_status"
                     error={errorStepOne.project_status}
@@ -489,7 +543,9 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
             <Row>
               <Col xs={6}>
                 <Form.Group className="mb-2">
-                  <Form.Label className="label-font">Pricing Model *</Form.Label>
+                  <Form.Label className="label-font">
+                    Pricing Model *
+                  </Form.Label>
                   <Form.Select
                     name="pricing_model"
                     error={errorStepOne.pricing_model}
@@ -533,7 +589,8 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
                     name="baseline_start_date"
                     error={errorStepOne.baseline_start_date}
                     className={
-                      errorStepOne.baseline_start_date ? "is-invalid" : ""  }
+                      errorStepOne.baseline_start_date ? "is-invalid" : ""
+                    }
                     value={projectDetails.baseline_start_date}
                     onChange={handleChange}
                   />
@@ -554,7 +611,7 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
                       label="Ongoing"
                       className="mb-0"
                       checked={isOngoing}
-                      onChange={(e) => {    
+                      onChange={(e) => {
                         const checked = e.target.checked;
                         setIsOngoing(checked);
                         if (checked) {
@@ -590,12 +647,13 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
               </Col>
               <Col md={6}>
                 <Form.Group className="mb-2">
-                  <Form.Label className="label-font">CSAT Frequency *</Form.Label>
+                  <Form.Label className="label-font">
+                    CSAT Frequency *
+                  </Form.Label>
                   <Form.Select
                     name="csat_frequency"
                     error={errorStepOne.csat_frequency}
-                    className={
-                      errorStepOne.csat_frequency ? "is-invalid" : ""  }       
+                    className={errorStepOne.csat_frequency ? "is-invalid" : ""}
                     value={projectDetails.csat_frequency}
                     onChange={handleChange}
                   >
@@ -641,16 +699,12 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
               </Col> */}
               <Col xs={3}>
                 <Form.Group className="mb-2">
-                  <Form.Label className="label-font">
-                    Start Date *
-                  </Form.Label>
+                  <Form.Label className="label-font">Start Date *</Form.Label>
                   <Form.Control
                     type="date"
                     name="start_date"
-                    error={errorStepTwo.start_date} 
-                    className={
-                      errorStepTwo.start_date ? "is-invalid" : "" 
-                    }
+                    error={errorStepTwo.start_date}
+                    className={errorStepTwo.start_date ? "is-invalid" : ""}
                     value={projectDets.start_date}
                     onChange={handleProjectDetsChange}
                   />
@@ -658,29 +712,22 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
               </Col>
               <Col xs={3}>
                 <Form.Group className="mb-2">
-                  <Form.Label className="label-font">
-                    End Date *
-                  </Form.Label>
+                  <Form.Label className="label-font">End Date *</Form.Label>
                   <Form.Control
                     type="date"
                     name="end_date"
                     value={projectDets.end_date}
                     error={errorStepTwo.end_date}
-                    className={   
-                      errorStepTwo.end_date ? "is-invalid" : "" 
-                    }
+                    className={errorStepTwo.end_date ? "is-invalid" : ""}
                     onChange={handleProjectDetsChange}
                   />
                 </Form.Group>
               </Col>
-              
             </Row>
             <Row>
               <Col xs={3}>
                 <Form.Group className="mb-2">
-                <Form.Label className="label-font">
-                    CSAT Value
-                  </Form.Label>
+                  <Form.Label className="label-font">CSAT Value</Form.Label>
                   <Form.Control
                     type="number"
                     name="csat_value"
@@ -692,9 +739,7 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
               </Col>
               <Col xs={3}>
                 <Form.Group className="mb-2">
-                <Form.Label className="label-font">
-                    NPS Value
-                  </Form.Label>
+                  <Form.Label className="label-font">NPS Value</Form.Label>
                   <Form.Control
                     type="number"
                     name="nps_value"
@@ -706,9 +751,7 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
               </Col>
               <Col xs={3}>
                 <Form.Group className="mb-2">
-                <Form.Label className="label-font">
-                    Billable Count
-                  </Form.Label>
+                  <Form.Label className="label-font">Billable Count</Form.Label>
                   <Form.Control
                     type="number"
                     name="billable_count"
@@ -720,7 +763,7 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
               </Col>
               <Col xs={3}>
                 <Form.Group className="mb-2">
-                <Form.Label className="label-font">
+                  <Form.Label className="label-font">
                     Non Billable Count
                   </Form.Label>
                   <Form.Control
@@ -734,10 +777,10 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
               </Col>
             </Row>
             <Row>
-            <Col xs={3}>
+              <Col xs={3}>
                 <Form.Group className="mb-3">
-                <Form.Label className="label-font">
-                Resource Projection
+                  <Form.Label className="label-font">
+                    Resource Projection
                   </Form.Label>
                   <Form.Control
                     type="number"
@@ -751,7 +794,7 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
             </Row>
             <Row>
               <Col xs={6}>
-                <Form.Group >
+                <Form.Group>
                   <Form.Label className="label-font">
                     Overall Project Status *
                   </Form.Label>
@@ -759,8 +802,8 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
                     name="over_all_project"
                     value={projectDets.over_all_project}
                     error={errorStepTwo.over_all_project}
-                    className={ 
-                      errorStepTwo.over_all_project ? "is-invalid" : "" 
+                    className={
+                      errorStepTwo.over_all_project ? "is-invalid" : ""
                     }
                     onChange={handleProjectDetsChange}
                   >
@@ -774,7 +817,7 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
                 </Form.Group>
               </Col>
               <Col xs={6}>
-                <Form.Group >
+                <Form.Group>
                   <Form.Label className="label-font">
                     Reason for Amber/Red
                   </Form.Label>
@@ -794,19 +837,21 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
       case 3:
         return (
           <>
-            <h3 className="section-heading">
-              Risk Assessment & Action Plans
-            </h3>
+            <h3 className="section-heading">Risk Assessment & Action Plans</h3>
             <Row className="mb-4">
               <Col xs={6}>
                 <Form.Group className="mb-4">
-                  <Form.Label className="label-font">Risk Intensity *</Form.Label>
+                  <Form.Label className="label-font">
+                    Risk Intensity *
+                  </Form.Label>
                   <Form.Select
                     name="risk_intensity"
                     value={projectDets.risk_intensity}
                     onChange={handleProjectDetsChange}
                     error={errorStepThree.risk_intensity}
-                    className={errorStepThree.risk_intensity ? "is-invalid" : ""} 
+                    className={
+                      errorStepThree.risk_intensity ? "is-invalid" : ""
+                    }
                   >
                     <option value="" disabled>
                       Select Risk Intensity
@@ -869,17 +914,13 @@ const { mutateAsync: updateProjectHealthAsync } = useUpdateProjectHealth();
     }
   };
 
-
-
   return (
     <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
       <Modal.Header>
         <StepIndicator currentStep={currentStep} />
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
-        <Modal.Body>
-          {renderStep()}
-        </Modal.Body>
+        <Modal.Body>{renderStep()}</Modal.Body>
         <Modal.Footer className="custom-modal-footer2">
           <>
             <Button variant="secondary" type="button" onClick={handleCancel}>
